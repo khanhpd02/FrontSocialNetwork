@@ -1,0 +1,131 @@
+.navigation-card {
+    width: fit-content;
+    height: fit-content;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background-color: #f0f2f5;
+    padding: 15px 10px;
+    border-radius: 50px;
+    margin-left: 40px;
+    margin-right: 20px;
+  }
+  .tab-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+
+  }
+  .tab-img12 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    
+    padding: 10px;
+
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+
+  }
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:10px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    background-color: #f3f2f2;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+
+  }
+  .tab:hover {
+    background-color: #eae9e9;
+  }
+  
+
+  .Btn1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    
+    overflow: hidden;
+    transition-duration: .3s;
+    color: black;
+    background-color: rgb(252, 252, 252);
+  }
+  
+  /* plus sign */
+  .sign1 {
+    width: 100%;
+    transition-duration: .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign1 svg {
+    width: 17px;
+  }
+  
+  .sign svg path {
+    fill: white;
+  }
+  /* text */
+  .text2 {
+    position: relative;
+    right: -2%;
+    width: 0%;
+    opacity: 10;
+    color: black;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: .3s;
+  }
+  /* hover effect on button width */
+  .Btn1:hover {
+    /* width: 125px; */
+    /* border-radius: 40px;
+    transition-duration: .3s; */
+    background-color: #dfdfdf;
+  }
+  
+  /* .Btn1:hover .sign1 {
+    width: 30%;
+    transition-duration: .3s;
+    padding-left: 20px;
+  } */
+  /* hover effect button's text */
+  /* .Btn1:hover .tex1 {
+    opacity: 1;
+    width: 70%;
+    transition-duration: .3s;
+    padding-right: 10px;
+  } */
+  /* button click effect*/
+  .Btn1:active {
+    transform: translate(2px ,2px);
+  }

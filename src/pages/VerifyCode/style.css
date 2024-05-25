@@ -1,0 +1,261 @@
+.container {
+  background-color: rgb(19, 25, 28);
+  width: 90%;
+  max-width: 500px;
+  padding: 50px 20px;
+  text-align: center;
+  height: 100%;
+}
+.container2 {
+  background-color: rgb(19, 25, 28);
+  width: 100%;
+ 
+  padding: 50px 20px;
+  text-align: center;
+  height: 100%;
+}
+.title {
+  font-size: 25px;
+  margin-bottom: 30px;
+}
+#otp-form {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+#otp-form input {
+  border: none;
+  background-color: #121517;
+  color: white;
+  font-size: 32px;
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  max-width: 70px;
+  height: 70px;
+  border-radius: 4px;
+  outline: 2px solid rgb(66, 66, 66);
+}
+#otp-form input:focus-visible {
+  outline: 2px solid royalblue;
+}
+#otp-form input.filled {
+  outline: 2px solid rgb(7, 192, 99);
+}
+#verify-btn {
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 30px;
+  background: royalblue;
+  color: white;
+  padding: 7px 10px;
+  border-radius: 4px;
+  font-size: 16px;
+  border: none;
+}
+
+
+.custum-file-upload {
+  /* height: 200px;
+  width: 300px; */
+  display: flex;
+  flex-direction: row;
+  align-items: space-between;
+  gap: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #6eb7ed;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px #e8e8e8;
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: #456fe6;
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: #456fe6;
+}
+
+.custum-file-upload input {
+  display: none;
+}
+
+
+
+.buttonAddP {
+  font-family: inherit;
+  font-size: 13px;
+  background: #456fe6;
+  color: white;
+  padding: 0.8em 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
+.buttonAddP1 {
+  font-family: inherit;
+  font-size: 13px;
+  background: linear-gradient(to bottom, #f76767 0%,#f41414 100%);
+  color: white;
+  padding: 0.5em 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
+
+.buttonAddP:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.buttonAddP:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.buttonAddP span {
+  display: block;
+  margin-left: 0.4em;
+  transition: all 0.3s;
+}
+
+button svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+  transition: all 0.3s;
+}
+
+.buttonAddP .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-right: 0.5em;
+  transition: all 0.3s;
+}
+
+.buttonAddP:hover .svg-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.buttonAddP:hover svg {
+  transform: rotate(45deg);
+}
+
+
+
+
+.buttonAddP1:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.buttonAddP1:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.buttonAddP1 span {
+  display: block;
+  margin-left: 0.4em;
+  transition: all 0.3s;
+}
+
+.buttonAddP1 svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+  transition: all 0.3s;
+}
+
+.buttonAddP1 .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-right: 0.5em;
+  transition: all 0.3s;
+}
+
+.buttonAddP1:hover .svg-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.buttonAddP1:hover svg {
+  transform: rotate(45deg);
+}
+
+
+.radio-inputs {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0.5rem;
+  background-color: #EEE;
+  box-sizing: border-box;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+  padding: 0.25rem;
+  width: 300px;
+  font-size: 14px;
+}
+
+.radio-inputs .radio {
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+.radio-inputs .radio input {
+  display: none;
+}
+
+.radio-inputs .radio .name {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: none;
+  padding: .5rem 0;
+  color: rgba(51, 65, 85, 1);
+  transition: all .15s ease-in-out;
+}
+
+.radio-inputs .radio input:checked + .name {
+  background-color: #fff;
+  font-weight: 600;
+}
