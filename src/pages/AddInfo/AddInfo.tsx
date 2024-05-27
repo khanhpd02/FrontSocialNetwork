@@ -41,6 +41,13 @@ interface YourExistingDataType {
 const AddInfo = () => {
   const navigate = useNavigate();
   const token = useRecoilValue(tokenState);
+  const token1 = localStorage.getItem("token");
+  useEffect(() => {
+    if (token1 === null) {
+      // Kiểm tra nếu hasInfor không tồn tại hoặc có giá trị rỗng
+      navigate("/login");
+    }
+  }, [token]);
   useEffect(() => {
     const hasInfor = localStorage.getItem("hasInfor");
     if (hasInfor == "true") {
@@ -59,6 +66,7 @@ const AddInfo = () => {
   const [FileBackground, setSelectedFileBackground] = useState<File | null>(
     null
   );
+
   type DataType = YourExistingDataType | null;
   const [Gender, setGender] = useState(false);
   const [value, setValue] = useState(false);
@@ -188,7 +196,7 @@ const AddInfo = () => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data.data[0]);
+          console.log(response.data);
           setDataProvide(response.data);
         }
       })
@@ -244,6 +252,7 @@ const AddInfo = () => {
     loadDataProvide();
     // loadDataUserCmt();
   }, []);
+  console.log(dataProvide);
   return (
     <div
       className=" w-[auto] bg-[#e2e8f0] h-[100vh] flex justify-center items-center"
@@ -410,7 +419,7 @@ const AddInfo = () => {
                   value={selectedCity}
                 >
                   <option selected>Choose a provides</option>
-                  {dataProvide?.data?.map((index: any) => (
+                  {dataProvide?.data?.map((_, index: any) => (
                     <option value={dataProvide.data[index]?.code} key={index}>
                       {dataProvide.data[index]?.fullName}
                     </option>
@@ -433,7 +442,7 @@ const AddInfo = () => {
                   value={selectedDistrict1}
                 >
                   <option selected>Choose a district</option>
-                  {dataDistrict?.data?.map((index: any) => (
+                  {dataDistrict?.data?.map((_, index: any) => (
                     <option value={dataDistrict.data[index]?.code} key={index}>
                       {dataDistrict.data[index]?.fullName}
                     </option>
@@ -457,9 +466,9 @@ const AddInfo = () => {
                   value={selectedWard}
                 >
                   <option selected className="w-[200px]">
-                    Choose a district
+                    Choose a ward
                   </option>
-                  {dataWard?.data?.map((index: any) => (
+                  {dataWard?.data?.map((_, index: any) => (
                     <option value={dataWard.data[index]?.code} key={index}>
                       {dataWard.data[index]?.fullName}
                     </option>

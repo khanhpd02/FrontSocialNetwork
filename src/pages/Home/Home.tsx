@@ -141,7 +141,7 @@ const Home = () => {
       <>
         {ViewHomeR == true ? (
           <div className=" overflow-y-auto relative left-[20.5rem] top-[50px] w-[58vw]">
-            <div className="flex flex-col justify-center pl-16 items-center mt-6">
+            <div className="flex flex-col justify-center items-center mt-6 min-[1367px]:pl-16 ">
               <Link
                 to="/add-post"
                 className="bg-white w-[61%] h-[45px] mr-[10%] rounded-[20px] flex justify-around items-center "
@@ -199,7 +199,7 @@ const Home = () => {
           <>
             <div className=" overflow-y-auto relative left-[20.5rem] top-[50px] w-[58vw]">
               {" "}
-              <div className="flex justify-center pl-16">
+              <div className="flex justify-center min-[1367px]:pl-16 ">
                 <CardReels data={reels} />
               </div>
             </div>

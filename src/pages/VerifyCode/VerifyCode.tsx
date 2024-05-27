@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
@@ -26,7 +26,10 @@ const VerifyCode: FC<Props> = () => {
   const [pin5, setPin5] = useState("");
   const [pin6, setPin6] = useState("");
   // const [pin, setPin] = useState("0");
-  const [emailRegisRecoil] = useRecoilValue(EmailRegis);
+  const emailRegisRecoil = useRecoilValue(EmailRegis);
+  useEffect(() => {
+    if (emailRegisRecoil === "") navigate("/login");
+  }, []);
   const handleInputChange = (index: number, value: string) => {
     value = value.replace(/[^0-9]/g, "");
     switch (index) {
@@ -59,9 +62,9 @@ const VerifyCode: FC<Props> = () => {
   };
   const handlePin = async () => {
     const pin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
-    console.log(pin); // Hiển thị kiểu dữ liệu "string"
+    // Hiển thị kiểu dữ liệu "string"
     const email = emailRegisRecoil;
-
+    console.log(pin, emailRegisRecoil);
     try {
       const response = await axios.post(API.VERIFY_PIN, {
         email,
@@ -72,7 +75,7 @@ const VerifyCode: FC<Props> = () => {
         // Ẩn toast
         navigate("/login");
       } else {
-        toast.success("Xác thực thất bại!");
+        toast.error("Xác thực thất bại!");
       }
     } catch (error) {
       console.error("Login failed", error);
@@ -102,8 +105,25 @@ const VerifyCode: FC<Props> = () => {
           </form>
           <button
             id="verify-btn"
-            className="cursor-pointer"
+            className={`verify-button ${
+              pin1 !== "" &&
+              pin2 !== "" &&
+              pin3 !== "" &&
+              pin4 !== "" &&
+              pin5 !== "" &&
+              pin6 !== ""
+                ? "cursor-pointer"
+                : "cursor-not-allowed"
+            }`}
             onClick={handlePin}
+            disabled={
+              pin6 === "" ||
+              pin5 === "" ||
+              pin4 === "" ||
+              pin3 === "" ||
+              pin2 === "" ||
+              pin1 === ""
+            }
           >
             Xác nhận OTP
           </button>

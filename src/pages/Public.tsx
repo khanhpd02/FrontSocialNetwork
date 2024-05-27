@@ -8,7 +8,13 @@ interface IProps {
 const Public: React.FC<IProps> = ({ children }) => {
   const history = useNavigate();
   // const { setUser } = ChatState();
-
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token === null) {
+      // Kiểm tra nếu hasInfor không tồn tại hoặc có giá trị rỗng
+      history("/login");
+    }
+  }, [token]);
   useEffect(() => {
     const hasInfor = localStorage.getItem("hasInfor");
     if (hasInfor == "false") {

@@ -10,6 +10,8 @@ interface Comment {
   islike: boolean;
   postId: string;
   commentId: string;
+  image: string;
+  userNotify: any;
 }
 interface CommentF {
   content: string;
@@ -61,7 +63,6 @@ const Notifications = () => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response);
           setLoadCmt1(true);
           setLoad(true);
           setLoadSearch1(false);
@@ -101,6 +102,7 @@ const Notifications = () => {
     // Thiết lập interval để gọi fetchData mỗi giây
     const intervalId = setInterval(() => {
       loadData();
+      loadDataF();
     }, 1000);
 
     // // Clear interval khi component bị unmount để tránh memory leak
@@ -150,10 +152,15 @@ const Notifications = () => {
                         <div
                           id="notification-card-1"
                           className="mt-3 bg-verylightgb  flex justify-between p-3  w-[100%] cursor-pointer hover:bg-[#f2f2f2] rounded-[10px]"
-                          // onClick={() => {
-                          //   handleGetPostNoti(item?.postId, item?.commentId);
-                          // }}
+                          onClick={() => {
+                            navigate(`/personal-user/${item.userTo}`);
+                          }}
                         >
+                          <img
+                            src={item.image}
+                            alt=""
+                            className="w-10 h-10 rounded-[50%]"
+                          />
                           <div className=" text-sm flex-auto mx-6 text-left">
                             <a
                               href="#"
@@ -184,6 +191,11 @@ const Notifications = () => {
                             handleGetPostNoti(item?.postId, item?.commentId);
                           }}
                         >
+                          <img
+                            src={item.image}
+                            alt=""
+                            className="w-10 h-10 rounded-[50%]"
+                          />
                           <div className=" text-sm flex-auto mx-6 text-left">
                             <a
                               href="#"

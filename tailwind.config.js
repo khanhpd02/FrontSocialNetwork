@@ -11,6 +11,9 @@ export default {
   theme: {
   
     extend: {
+      screens: {
+        '14inch': '1366px', // Customize this value if needed
+      },
       colors: {
         'primary-500': '#877EFF',
         'primary-600': '#5D5FEF',

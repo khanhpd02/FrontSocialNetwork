@@ -28,6 +28,7 @@ const AddPost = () => {
   const [toggleEmj, setToggleEmj] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   //
+
   type DataType = YourExistingDataType | null;
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const filesWithPreview = acceptedFiles.map((file) => ({
@@ -194,6 +195,7 @@ const AddPost = () => {
               <label className="text-[#456fe6] font-medium">Add Post</label>
               {uploadedFiles.length < 1 && (
                 <label
+                  htmlFor="file"
                   className="custum-file-upload w-[100%]  h-[320px]"
                   {...getRootProps()}
                 >
@@ -228,7 +230,10 @@ const AddPost = () => {
               )}
               {uploadedFiles.length > 0 && (
                 <div>
-                  <label className="custum-file-upload w-[100%]  h-[320px] flex ">
+                  <label
+                    className="custum-file-upload w-[100%]  h-[320px] flex "
+                    htmlFor="file"
+                  >
                     {uploadedFiles.map((uploadedFile, index) => (
                       <div key={index} className="relative  w-[fit-content]">
                         {uploadedFiles[index]?.file.type === "video/mp4" ? (
@@ -266,7 +271,15 @@ const AddPost = () => {
                 <MdOutlineClose />
                 <span>Cancle</span>
               </button>
-              <button className="buttonAddP ml-2" onClick={handlePost}>
+              <button
+                className={`buttonAddP ml-2 ${
+                  Content !== "" || uploadedFiles.length !== 0
+                    ? "cursor-pointer"
+                    : "cursor-not-allowed"
+                }`}
+                onClick={handlePost}
+                disabled={Content == "" && uploadedFiles.length === 0}
+              >
                 {isLoading ? (
                   <div className="loader"></div>
                 ) : (

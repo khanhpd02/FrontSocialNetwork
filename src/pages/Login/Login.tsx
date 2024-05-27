@@ -20,7 +20,8 @@ interface YourExistingDataType {
 const Login = () => {
   const history = useNavigate();
   // const [signIn, toggle] = React.useState(true);
-  const [, setEmailRegisRecoil] = useRecoilState(EmailRegis);
+  const [emailRC, setEmailRegisRecoil] = useRecoilState(EmailRegis);
+  console.log(emailRC);
   type DataType = YourExistingDataType | null;
   // Register
   const navigate = useNavigate();
@@ -200,14 +201,17 @@ const Login = () => {
                       <p>Forgot Password ?</p>
                     </span>
                   </div>
-                  <div
-                    className="login-button flex justify-center"
+                  <button
+                    className={`login-button flex justify-center ${
+                      email !== "" && password1 !== ""
+                        ? "cursor-pointer"
+                        : "cursor-not-allowed"
+                    }`}
                     onClick={handleLogin}
-
-                    // disabled={isFetching}
+                    disabled={email === "" || password1 === ""}
                   >
                     {isLoading ? <div className="loader"></div> : "Sign in"}
-                  </div>
+                  </button>
                 </div>
                 <div className="social-account-container">
                   <span className="title">Or Sign in with</span>
@@ -312,8 +316,15 @@ const Login = () => {
                   </span>
                 </div>
                 <button
-                  className="login-button flex justify-center"
+                  className={`login-button flex justify-center ${
+                    email !== "" && password1 !== "" && comFirmPassword !== ""
+                      ? "cursor-pointer"
+                      : "cursor-not-allowed"
+                  }`}
                   onClick={handleRegister}
+                  disabled={
+                    email === "" || password1 === "" || comFirmPassword === ""
+                  }
                 >
                   {isLoading ? <div className="loader"></div> : "Sign up"}
                 </button>

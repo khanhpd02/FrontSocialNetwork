@@ -266,6 +266,7 @@ const EditPost = ({ data }: Props) => {
                 {lengthAI <= 0 && uploadedFiles.length <= 0 && (
                   <label
                     className="custum-file-upload w-[100%]  h-[300px]"
+                    htmlFor="file"
                     {...getRootProps()}
                   >
                     <div className="icon">
@@ -299,7 +300,10 @@ const EditPost = ({ data }: Props) => {
                 )}
                 {(lengthAI > 0 || uploadedFiles.length > 0) && (
                   <div>
-                    <label className="custum-file-upload w-[100%]  h-[auto] min-h-[300px] grid grid-cols-2 ">
+                    <label
+                      className="custum-file-upload w-[100%]  h-[auto] min-h-[300px] grid grid-cols-2 "
+                      htmlFor="file"
+                    >
                       {uploadedFiles.map((uploadedFile, index) => (
                         <div
                           key={index}
@@ -329,7 +333,7 @@ const EditPost = ({ data }: Props) => {
                         </div>
                       ))}
 
-                      {data.images.map((index: number) => (
+                      {data.images.map((_: any, index: number) => (
                         <div className="relative" key={index}>
                           {hiddenIds.includes(data.images[index].id) ? (
                             <></>

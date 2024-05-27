@@ -300,6 +300,7 @@ const AddReels = () => {
               {uploadedFiles.length < 1 && (
                 <label
                   className="custum-file-upload w-[100%]  h-[320px]"
+                  htmlFor="file"
                   {...getRootProps()}
                 >
                   <div className="icon">
@@ -333,7 +334,10 @@ const AddReels = () => {
               )}
               {uploadedFiles.length > 0 && (
                 <div>
-                  <label className="custum-file-upload w-[100%]  h-[320px] flex">
+                  <label
+                    className="custum-file-upload w-[100%]  h-[320px] flex"
+                    htmlFor="file"
+                  >
                     {uploadedFiles.map((uploadedFile, index) => (
                       <div key={index} className="relative">
                         {uploadedFiles[0]?.file.type === "video/mp4" ? (
@@ -372,7 +376,15 @@ const AddReels = () => {
                 <MdOutlineClose />
                 <span>Cancle</span>
               </button>
-              <button className="buttonAddP ml-2" onClick={handlePost}>
+              <button
+                className={`buttonAddP ml-2 ${
+                  uploadedFiles.length !== 0
+                    ? "cursor-pointer"
+                    : "cursor-not-allowed"
+                }`}
+                onClick={handlePost}
+                disabled={uploadedFiles.length === 0}
+              >
                 {isLoading ? (
                   <div className="loader"></div>
                 ) : (

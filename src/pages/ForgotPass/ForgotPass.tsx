@@ -130,14 +130,15 @@ const ForgotPass = () => {
                       <p>Back to Login ?</p>
                     </span>
                   </div>
-                  <div
-                    className="login-button flex justify-center"
+                  <button
+                    className={`login-button flex justify-center ${
+                      email !== "" ? "cursor-pointer" : "cursor-not-allowed"
+                    }`}
                     onClick={handleSendOTP}
-
-                    // disabled={isFetching}
+                    disabled={email === ""}
                   >
                     {isLoading ? <div className="loader"></div> : "Send OTP"}
-                  </div>
+                  </button>
                 </div>
                 <div className="social-account-container">
                   <span className="title">Or Sign in with</span>

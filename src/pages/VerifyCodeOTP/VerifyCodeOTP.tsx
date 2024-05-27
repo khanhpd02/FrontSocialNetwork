@@ -1,4 +1,4 @@
-import React, { FC, useState, useRef } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
@@ -28,7 +28,10 @@ const VerifyCodeOTP: FC<Props> = () => {
   const [pin5, setPin5] = useState("");
   const [pin6, setPin6] = useState("");
   // const [pin, setPin] = useState("0");
-  const [emailFP] = useRecoilValue(EmailFP);
+  const emailFP = useRecoilValue(EmailFP);
+  useEffect(() => {
+    if (emailFP === "") navigate("/login");
+  }, []);
   const handleInputChange = (index: number, value: string) => {
     value = value.replace(/[^0-9]/g, "");
     switch (index) {

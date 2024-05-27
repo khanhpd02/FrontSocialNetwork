@@ -195,7 +195,7 @@ const Search = () => {
                     <div className="mt-10 flex flex-col justify-center items-center">
                       {dataCmt.data.map((item: Comment, index: number) => (
                         <div
-                          className="w-[65%] h-[90px] bg-white mb-4 rounded-[10px] px-5 pt-5 pb-5  flex justify-between"
+                          className="w-[70%] min-[1367px]:w-[65%] h-[90px] bg-white mb-4 rounded-[10px] px-5 pt-5 pb-5  flex justify-between"
                           key={index}
                         >
                           <div className="flex cursor-pointer">
@@ -317,7 +317,7 @@ const Search = () => {
               ) : (
                 <>
                   <div className="mt-10 flex flex-col justify-center items-center">
-                    <div className="w-[65%] h-[90px] bg-white mb-4 rounded-[10px] px-5 pt-5 pb-5 flex">
+                    <div className="w-[70%] min-[1367px]:w-[65%] h-[90px] bg-white mb-4 rounded-[10px] px-5 pt-5 pb-5 flex">
                       <div className="w-[50px] h-[50px] ">
                         <Skeleton className="h-[50px] w-[50px] rounded-[50%]" />
                       </div>
@@ -328,7 +328,7 @@ const Search = () => {
                     </div>
                   </div>
                   <div className="mt-1 flex flex-col justify-center items-center">
-                    <div className="w-[65%] h-[90px] bg-white mb-4 rounded-[10px] px-5 pt-5 pb-5 flex">
+                    <div className="w-[70%] min-[1367px]:w-[65%] h-[90px] bg-white mb-4 rounded-[10px] px-5 pt-5 pb-5 flex">
                       <div className="w-[50px] h-[50px] ">
                         <Skeleton className="h-[50px] w-[50px] rounded-[50%]" />
                       </div>
