@@ -115,6 +115,7 @@ const Admin = () => {
       console.error("Add sai!", error);
     }
   };
+  console.log(dataUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogout = () => {
@@ -604,7 +605,7 @@ const Admin = () => {
                 color: "#111111",
               }}
             >
-              Xác nhận xóa user
+              Xác nhận ban user
             </h2>
             <p
               style={{
@@ -617,7 +618,7 @@ const Admin = () => {
                 color: "#78828A",
               }}
             >
-              Bạn có muốn chắc chắn xóa user này?
+              Bạn có muốn chắc chắn ban user này?
             </p>
             <div
               style={{

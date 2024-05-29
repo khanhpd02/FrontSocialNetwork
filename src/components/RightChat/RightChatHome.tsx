@@ -228,8 +228,8 @@ const RightChatHome = () => {
       "_" +
       name;
 
-    const appID = 722062014; // fill your appID here
-    const serverSecret = "28e8f45315c65c6ece66781503e4946e"; // fill your serverSecret here
+    const appID = 67139489; // fill your appID here
+    const serverSecret = "44e3c3e847572cc21bfe9f5f9f3410a5"; // fill your serverSecret here
     console.log("ban dau", userId, userName);
     const KitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,

@@ -20,8 +20,8 @@ const CallGroup = () => {
   const roomID = getUrlParams().get("roomID") || randomID(5);
   const myMeeting = async (element: any) => {
     // generate Kit Token
-    const appID = 722062014;
-    const serverSecret = "28e8f45315c65c6ece66781503e4946e";
+    const appID = 67139489;
+    const serverSecret = "44e3c3e847572cc21bfe9f5f9f3410a5";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,

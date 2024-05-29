@@ -94,6 +94,7 @@ const Login = () => {
   ) as DataType;
   const isFetching = useSelector((state: RootState) => state.user.isFetching);
   useEffect(() => {
+    console.log(currentUser);
     if (currentUser?.data.success === true) {
       toast.success("Đăng nhập thành công!");
       setToken(currentUser?.data?.data?.jwtToken);
@@ -110,7 +111,7 @@ const Login = () => {
     }
     if (error == true && isFetching == false) {
       setIsLoading(false);
-      toast.error("Đăng nhập thất bại!");
+      // toast.error("Đăng nhập thất bại!");
     }
   }, [currentUser, error, isFetching]);
 
