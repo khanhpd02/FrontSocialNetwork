@@ -9,7 +9,6 @@ import Picker from "@emoji-mart/react";
 import { api } from "../../utils/setAuthToken";
 import { useRecoilState } from "recoil";
 import { ShareS, isSharePost } from "../../recoil/initState";
-
 import { useDropzone } from "react-dropzone";
 
 interface UploadedFile {
@@ -19,7 +18,6 @@ interface UploadedFile {
 interface Props {
   data: any;
 }
-
 interface MenuItem {
   key: string;
   label: string;
@@ -125,7 +123,7 @@ const EditPost = ({ data }: Props) => {
         });
       }
       if (uploadedFiles) {
-        uploadedFiles.map((index: any) => {
+        uploadedFiles.map((_: any, index: number) => {
           formData.append("File", uploadedFiles[index]?.file);
         });
       }
@@ -265,8 +263,8 @@ const EditPost = ({ data }: Props) => {
                 <label className="text-[#456fe6] font-medium">Image Post</label>
                 {lengthAI <= 0 && uploadedFiles.length <= 0 && (
                   <label
-                    className="custum-file-upload w-[100%]  h-[300px]"
                     htmlFor="file"
+                    className="custum-file-upload w-[100%]  h-[300px]"
                     {...getRootProps()}
                   >
                     <div className="icon">
@@ -301,14 +299,20 @@ const EditPost = ({ data }: Props) => {
                 {(lengthAI > 0 || uploadedFiles.length > 0) && (
                   <div>
                     <label
-                      className="custum-file-upload w-[100%]  h-[auto] min-h-[300px] grid grid-cols-2 "
                       htmlFor="file"
+                      className="custum-file-upload w-[100%]  h-[auto] min-h-[300px] grid grid-cols-2 "
                     >
                       {uploadedFiles.map((uploadedFile, index) => (
                         <div
                           key={index}
                           className="relative w-[fit-content] bg-black"
                         >
+                          {/* <img
+                            src={uploadedFile.preview}
+                            alt="Uploaded Image"
+                            className="max-w-[200px] max-h-[200px] rounded-[10px] cursor-pointer"
+                            {...getRootProps()}
+                          /> */}
                           {uploadedFiles[index]?.file.type === "video/mp4" ? (
                             <video
                               src={uploadedFile.preview}

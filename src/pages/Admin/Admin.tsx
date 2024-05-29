@@ -555,18 +555,6 @@ const Admin = () => {
               </div>
             </div>
           </main>
-
-          <footer className="w-full bg-white text-right p-4">
-            Built by{" "}
-            <a
-              target="_blank"
-              href="https://davidgrzyb.com"
-              className="underline"
-            >
-              KTC SOCIAL NETWORK
-            </a>
-            .
-          </footer>
         </div>
       </div>
       {sb && (

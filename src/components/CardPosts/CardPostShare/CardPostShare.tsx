@@ -69,6 +69,7 @@ const CardPostShare = ({ data }: Props) => {
     success: false,
     message: "",
   });
+  console.log(images);
   const { info } = useSelector((state: RootState) => state.info);
   type DataType = YourExistingDataType | null;
   const dataAddCmt = useSelector(
@@ -490,10 +491,10 @@ const CardPostShare = ({ data }: Props) => {
                   <>
                     {images.length === 2 ? (
                       <div className="flex">
-                        {images?.map((index: number) => (
+                        {images?.map((_: any, item: number) => (
                           <img
-                            key={index}
-                            src={images[index]?.linkImage}
+                            key={item}
+                            src={images[item]?.linkImage}
                             alt=""
                             className="max-h-[300px] w-[50%] mx-[2px]"
                           />
@@ -954,9 +955,9 @@ const CardPostShare = ({ data }: Props) => {
                   <>
                     {images.length === 2 ? (
                       <div className="flex">
-                        {images?.map((index: number, item: number) => (
+                        {images?.map((_: any, item: number) => (
                           <img
-                            key={index}
+                            key={item}
                             src={images[item]?.linkImage}
                             alt=""
                             className="max-h-[300px] w-[50%] mx-[2px]"
@@ -1010,13 +1011,6 @@ const CardPostShare = ({ data }: Props) => {
                           <div className="">
                             <CustomVideo src={videos[item]?.link} />
                           </div>
-                          // <video
-                          //   key={index}
-
-                          //   controls
-                          //   preload="auto"
-                          //   className="w-[100%]"
-                          // ></video>
                         ))}
                       </>
                     )}
