@@ -42,7 +42,7 @@ const HeaderTop = () => {
             KTCSocial
           </p>
         </div>
-        <div className="InputContainer flex">
+        <div className="InputContainer flex min-[1920px]:w-[60%] w-[90%]">
           <div className="h-[40px] w-[40px] flex justify-center items-center bg-[#f0f2f5] rounded-l-[30px]">
             <FiSearch className=" transform -translate-y-1/2 text-gray-500 mt-4" />
           </div>

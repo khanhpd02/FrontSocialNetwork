@@ -141,10 +141,10 @@ const Home = () => {
       <>
         {ViewHomeR == true ? (
           <div className=" overflow-y-auto relative left-[20.5rem] top-[50px] w-[58vw]">
-            <div className="flex flex-col justify-center items-center mt-6 min-[1367px]:pl-16 ">
+            <div className="flex flex-col justify-center items-center mt-6 min-[1920px]:pl-60 pl-16">
               <Link
                 to="/add-post"
-                className="bg-white w-[61%] h-[45px] mr-[10%] rounded-[20px] flex justify-around items-center "
+                className="bg-white w-[61%] h-[45px] min-[1920px]:mr-[12%] mr-[10%] rounded-[20px] flex justify-around items-center "
               >
                 <img
                   src={info?.data?.image}
@@ -165,7 +165,7 @@ const Home = () => {
 
             <div className="">
               {" "}
-              <div className=" h-[280px] w-[500px] ml-[21%] bg-white  rounded-[10px]">
+              <div className=" h-[280px] w-[500px] min-[1920px]:ml-[33%] ml-[21%] bg-white  rounded-[10px]">
                 <div className="py-4 px-4 flex justify-between items-center">
                   <div className="flex items-center">
                     <Skeleton className="h-[45px] w-[45px] rounded-[50%]" />
