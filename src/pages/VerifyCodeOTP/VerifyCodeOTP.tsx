@@ -69,7 +69,7 @@ const VerifyCodeOTP: FC<Props> = () => {
     console.log(email);
     try {
       const response = await axios.post(
-        "https://www.socialnetwork.somee.com/api/auth/VerifyPinForgotPassword",
+        "https://truongnetwwork.bsite.net/api/auth/VerifyPinForgotPassword",
         {
           email,
           pin,

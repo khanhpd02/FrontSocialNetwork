@@ -50,7 +50,7 @@ const PagePostSimp = () => {
     // Gọi API để lấy dữ liệu
     setAuthToken(token);
     await api
-      .get(`https://www.socialnetwork.somee.com/api/post/${id}`)
+      .get(`https://truongnetwwork.bsite.net/api/post/${id}`)
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {

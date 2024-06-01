@@ -136,14 +136,13 @@ const AddReels = () => {
     console.log(dataAddReels);
     if (dataAddReels?.success === true) {
       setIsLoading(false);
-      toast.success("Thêm Reels thành công!");
+
       setContent("");
       setUploadedFiles([]);
     }
     if (error == true && isFetching == false) {
       setIsLoading(false);
       console.log(error);
-      toast.error("Thêm Reels thất bại!");
     }
   }, [dataAddReels, isFetching]);
   const removeImage = (indexToRemove: number) => {

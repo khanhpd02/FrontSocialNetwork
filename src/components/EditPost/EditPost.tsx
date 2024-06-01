@@ -129,7 +129,7 @@ const EditPost = ({ data }: Props) => {
       }
       console.log(formData);
       await api
-        .put(`https://www.socialnetwork.somee.com/api/post`, formData, {
+        .put(`https://truongnetwwork.bsite.net/api/post`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -303,10 +303,7 @@ const EditPost = ({ data }: Props) => {
                       className="custum-file-upload w-[100%]  h-[auto] min-h-[300px] grid grid-cols-2 "
                     >
                       {uploadedFiles.map((uploadedFile, index) => (
-                        <div
-                          key={index}
-                          className="relative w-[fit-content] bg-black"
-                        >
+                        <div key={index} className="relative w-[fit-content]">
                           {/* <img
                             src={uploadedFile.preview}
                             alt="Uploaded Image"
@@ -338,7 +335,7 @@ const EditPost = ({ data }: Props) => {
                       ))}
 
                       {data.images.map((_: any, index: number) => (
-                        <div className="relative" key={index}>
+                        <div className="relative  w-[fit-content]" key={index}>
                           {hiddenIds.includes(data.images[index].id) ? (
                             <></>
                           ) : (
@@ -346,7 +343,7 @@ const EditPost = ({ data }: Props) => {
                               <img
                                 src={data.images[index].linkImage}
                                 alt="Uploaded Image"
-                                className="max-w-[200px] max-h-[200px] rounded-[10px] cursor-pointer"
+                                className=" max-h-[200px] rounded-[10px] cursor-pointer "
                                 {...getRootProps()}
                               />
 

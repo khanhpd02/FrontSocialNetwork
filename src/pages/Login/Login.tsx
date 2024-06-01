@@ -96,7 +96,6 @@ const Login = () => {
   useEffect(() => {
     console.log(currentUser);
     if (currentUser?.data.success === true) {
-      toast.success("Đăng nhập thành công!");
       setToken(currentUser?.data?.data?.jwtToken);
       localStorage.setItem("token", currentUser?.data?.data?.jwtToken);
       localStorage.setItem("hasInfor", currentUser?.data?.data?.hasInfor);

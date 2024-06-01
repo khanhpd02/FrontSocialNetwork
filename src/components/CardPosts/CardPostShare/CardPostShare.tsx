@@ -5,7 +5,12 @@ import { IoMdClose } from "react-icons/io";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { api, setAuthToken } from "../../../utils/setAuthToken";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tokenState, ShareS, isUpdatePost } from "../../../recoil/initState";
+import {
+  tokenState,
+  ShareS,
+  isUpdatePost,
+  SharePS,
+} from "../../../recoil/initState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { HiOutlineMicrophone } from "react-icons/hi2";
@@ -18,6 +23,9 @@ import CustomVideo from "../../CustomVideo/CustomVideo";
 import ShareLayout from "../../shareLayout/shareLayout";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import LazyLoadImg from "../../common/LazyLoadImg/LazyLoadImg";
+import { MdOutlineEdit } from "react-icons/md";
+import EditPostShare from "../../EditPostShare/EditPostShare";
 interface Comment {
   childrenComment: any;
   id: string;
@@ -39,7 +47,7 @@ interface YourExistingDataType {
   data: any;
 }
 const CardPostShare = ({ data }: Props) => {
-  const [images] = useState(data.images);
+  const [images, setImages] = useState(data.images);
   const [videos] = useState(data.videos);
   const token = useRecoilValue(tokenState);
   const [toggleEmj, setToggleEmj] = useState(true);
@@ -82,6 +90,9 @@ const CardPostShare = ({ data }: Props) => {
     setVisibleComments(2);
   };
   useEffect(() => {
+    setImages(data.images);
+  }, [data.images]);
+  useEffect(() => {
     if (dataAddCmt && dataAddCmt.data && dataAddCmt.data.success === true) {
       // setLoadCmt1(false);
       setLoadCmt(false);
@@ -109,7 +120,7 @@ const CardPostShare = ({ data }: Props) => {
       // setLike(!like);
       // setCountData(data.countLike + 1);
       await api
-        .post(`https://www.socialnetwork.somee.com/api/like/${id}`)
+        .post(`https://truongnetwwork.bsite.net/api/like/${id}`)
         .then((response) => {
           // Cập nhật dữ liệu vào state
 
@@ -120,7 +131,7 @@ const CardPostShare = ({ data }: Props) => {
             try {
               api
                 .get(
-                  `https://www.socialnetwork.somee.com/api/like/likeonpost/${id}`
+                  `https://truongnetwwork.bsite.net/api/like/likeonpost/${id}`
                 )
                 .then((response) => {
                   // Cập nhật dữ liệu vào state
@@ -163,7 +174,7 @@ const CardPostShare = ({ data }: Props) => {
       // setLike(!like);
       // setCountData(data.countLike + 1);
       await api
-        .post(`https://www.socialnetwork.somee.com/api/like/${id}`)
+        .post(`https://truongnetwwork.bsite.net/api/like/${id}`)
         .then((response) => {
           // Cập nhật dữ liệu vào state
 
@@ -174,7 +185,7 @@ const CardPostShare = ({ data }: Props) => {
             try {
               api
                 .get(
-                  `https://www.socialnetwork.somee.com/api/like/likeonpost/${id}`
+                  `https://truongnetwwork.bsite.net/api/like/likeonpost/${id}`
                 )
                 .then((response) => {
                   // Cập nhật dữ liệu vào state
@@ -332,7 +343,7 @@ const CardPostShare = ({ data }: Props) => {
     // Gọi API để lấy dữ liệu
     await api
       .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/cmt/getcmtPost/${data.id}`
+        `https://truongnetwwork.bsite.net/api/cmt/getcmtPost/${data.id}`
       )
       .then((response) => {
         // Cập nhật dữ liệu vào state
@@ -351,7 +362,7 @@ const CardPostShare = ({ data }: Props) => {
 
     await api
       .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/cmt/getcmtPost/${data.idShare}`
+        `https://truongnetwwork.bsite.net/api/cmt/getcmtPost/${data.idShare}`
       )
       .then((response) => {
         // Cập nhật dữ liệu vào state
@@ -371,9 +382,7 @@ const CardPostShare = ({ data }: Props) => {
     // const userId = id;
     const parentId = pId;
     return api
-      .post(
-        `https://www.socialnetwork.somee.com/api/cmt/deleteOrUndo/${parentId}`
-      )
+      .post(`https://truongnetwwork.bsite.net/api/cmt/deleteOrUndo/${parentId}`)
       .then((res) => {
         if (res.status === 200) {
           console.log(res);
@@ -399,7 +408,7 @@ const CardPostShare = ({ data }: Props) => {
     console.log(idShare);
     return api
       .delete(
-        `https://www.socialnetwork.somee.com/api/post/share/delete?shareId=${idShare}`
+        `https://truongnetwwork.bsite.net/api/post/share/delete?shareId=${idShare}`
       )
       .then((res) => {
         console.log(res);
@@ -411,6 +420,12 @@ const CardPostShare = ({ data }: Props) => {
       .catch((err) => console.log(err));
   };
   console.log(data);
+  const [IdEdit, setIdEdit] = useState("");
+  const [loadShareP, setLoadShareP] = useRecoilState(SharePS);
+  const handleEdit = () => {
+    setIdEdit(data.id);
+    setLoadShareP("2");
+  };
   return (
     <>
       <div
@@ -457,6 +472,12 @@ const CardPostShare = ({ data }: Props) => {
             {info?.data?.userId === data.userIdSharePost ? (
               <div className="flex">
                 <div className="text-[25px] p-2 cursor-pointer hover:bg-[#f2f2f2] rounded-[50%] duration-500">
+                  <div onClick={handleEdit}>
+                    {" "}
+                    <MdOutlineEdit />
+                  </div>
+                </div>
+                <div className="text-[25px] p-2 cursor-pointer hover:bg-[#f2f2f2] rounded-[50%] duration-500">
                   <div onClick={() => hanldDltPost(data.idShare)}>
                     <IoMdClose />
                   </div>
@@ -480,7 +501,7 @@ const CardPostShare = ({ data }: Props) => {
         >
           <div className="rounded-b-[10px] border-[1px] border-solid border-[#f2f2f2]">
             <div
-              className=" bg-white  mb-5 overflowY-auto"
+              className=" bg-white  mb-5 overflowY-auto overflow-x-hidden"
               style={{
                 overflowY: "auto",
                 maxHeight: "600px",
@@ -502,14 +523,27 @@ const CardPostShare = ({ data }: Props) => {
                       </div>
                     ) : images.length === 3 ? (
                       <div className="flex">
-                        {images?.map((index: number) => (
-                          <img
-                            key={index}
-                            src={images[index]?.linkImage}
-                            alt=""
-                            className="max-h-[300px] w-[50%] mx-[2px]"
+                        <div className="flex w-[100%]">
+                          <LazyLoadImg
+                            index={0}
+                            images={images[0]?.linkImage}
+                            className="max-h-[360px] w-[50%] mx-[2px] h-[auto] contain"
                           />
-                        ))}
+
+                          <div className="w-[50%]">
+                            <LazyLoadImg
+                              index={0}
+                              images={images[1]?.linkImage}
+                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                            />
+
+                            <LazyLoadImg
+                              index={0}
+                              images={images[2]?.linkImage}
+                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                            />
+                          </div>
+                        </div>
                       </div>
                     ) : images.length === 1 && videos.length === 1 ? (
                       <div className="flex flex-col">
@@ -966,14 +1000,27 @@ const CardPostShare = ({ data }: Props) => {
                       </div>
                     ) : images.length === 3 ? (
                       <div className="flex">
-                        {images?.map((index: number, item: number) => (
-                          <img
-                            key={index}
-                            src={images[item]?.linkImage}
-                            alt=""
-                            className="max-h-[300px] w-[50%] mx-[2px]"
+                        <div className="flex w-[100%]">
+                          <LazyLoadImg
+                            index={0}
+                            images={images[0]?.linkImage}
+                            className="max-h-[360px] w-[50%] mx-[2px] h-[auto] contain"
                           />
-                        ))}
+
+                          <div className="w-[50%]">
+                            <LazyLoadImg
+                              index={0}
+                              images={images[1]?.linkImage}
+                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                            />
+
+                            <LazyLoadImg
+                              index={0}
+                              images={images[2]?.linkImage}
+                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                            />
+                          </div>
+                        </div>
                       </div>
                     ) : images.length === 1 && videos.length === 1 ? (
                       <div className="flex flex-col">
@@ -1304,6 +1351,9 @@ const CardPostShare = ({ data }: Props) => {
       )}
       {loadShare === "1" && IdShare === data.id && (
         <ShareLayout PostId={data.id} />
+      )}
+      {loadShareP === "2" && IdEdit === data.id && (
+        <EditPostShare data={data} />
       )}
     </>
   );

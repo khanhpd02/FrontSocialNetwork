@@ -39,9 +39,7 @@ const ListFriendPersonal = () => {
     // Gọi API để lấy dữ liệu
 
     await api
-      .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/Friend/getAll`
-      )
+      .get<ResponseData>(`https://truongnetwwork.bsite.net/api/Friend/getAll`)
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
@@ -61,7 +59,7 @@ const ListFriendPersonal = () => {
 
     await api
       .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/Friend/getAllFriendRequest`
+        `https://truongnetwwork.bsite.net/api/Friend/getAllFriendRequest`
       )
       .then((response) => {
         // Cập nhật dữ liệu vào state
@@ -78,7 +76,7 @@ const ListFriendPersonal = () => {
       const id = idfriend;
       console.log(idfriend);
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/Friend/accept/${id}`
+        `https://truongnetwwork.bsite.net/api/Friend/accept/${id}`
       );
       console.log(response);
       if (response.status == 200) {
@@ -95,7 +93,7 @@ const ListFriendPersonal = () => {
     try {
       const id = idfriend;
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/Friend/refuseFriend/${id}`
+        `https://truongnetwwork.bsite.net/api/Friend/refuseFriend/${id}`
       );
       console.log(response);
       if (response.status == 200) {

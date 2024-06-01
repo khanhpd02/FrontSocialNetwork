@@ -49,8 +49,8 @@ const CardPost = ({ data, cmtid }: Props) => {
     }
   };
   type DataType = YourExistingDataType | null;
-  const [images] = useState(data.images);
-  const [videos] = useState(data.videos);
+  const [images, setImages] = useState(data.images);
+  const [videos, setVideos] = useState(data.videos);
   const token = useRecoilValue(tokenState);
   // const [like, setLike] = useRecoilState(ReloadLike);
   const [toggleEmj, setToggleEmj] = useState(true);
@@ -89,6 +89,12 @@ const CardPost = ({ data, cmtid }: Props) => {
   //   }
   // };
   useEffect(() => {
+    setImages(data.images);
+  }, [data.images]);
+  useEffect(() => {
+    setVideos(data.videos);
+  }, [data.videos]);
+  useEffect(() => {
     if (dataAddCmt?.data.success == true) {
       // setLoadCmt1(false);
       setLoadCmt(false);
@@ -115,7 +121,7 @@ const CardPost = ({ data, cmtid }: Props) => {
       // setLike(!like);
       // setCountData(data.countLike + 1);
       await api
-        .post(`https://www.socialnetwork.somee.com/api/like/${id}`)
+        .post(`https://truongnetwwork.bsite.net/api/like/${id}`)
         .then((response) => {
           // Cập nhật dữ liệu vào state
 
@@ -126,7 +132,7 @@ const CardPost = ({ data, cmtid }: Props) => {
             try {
               api
                 .get(
-                  `https://www.socialnetwork.somee.com/api/like/likeonpost/${id}`
+                  `https://truongnetwwork.bsite.net/api/like/likeonpost/${id}`
                 )
                 .then((response) => {
                   // Cập nhật dữ liệu vào state
@@ -171,7 +177,7 @@ const CardPost = ({ data, cmtid }: Props) => {
 
         try {
           const response = await api.get(
-            `https://www.socialnetwork.somee.com/api/like/likeonpost/${id}`
+            `https://truongnetwwork.bsite.net/api/like/likeonpost/${id}`
           );
 
           setCountData(response.data.data.length);
@@ -294,7 +300,7 @@ const CardPost = ({ data, cmtid }: Props) => {
     const id = data.id;
     await api
       .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/cmt/getcmtPost/${id}`
+        `https://truongnetwwork.bsite.net/api/cmt/getcmtPost/${id}`
       )
       .then((response) => {
         // Cập nhật dữ liệu vào state
@@ -314,9 +320,7 @@ const CardPost = ({ data, cmtid }: Props) => {
     // const userId = id;
     const parentId = pId;
     return api
-      .post(
-        `https://www.socialnetwork.somee.com/api/cmt/deleteOrUndo/${parentId}`
-      )
+      .post(`https://truongnetwwork.bsite.net/api/cmt/deleteOrUndo/${parentId}`)
       .then((res) => {
         if (res.status === 200) {
           loadData();
@@ -329,7 +333,7 @@ const CardPost = ({ data, cmtid }: Props) => {
     setAuthToken(token);
     console.log(data.id);
     return api
-      .delete(`https://www.socialnetwork.somee.com/api/post/${postId}`)
+      .delete(`https://truongnetwwork.bsite.net/api/post/${postId}`)
       .then((res) => {
         console.log(res);
         if (res.status === 204) {
@@ -433,13 +437,27 @@ const CardPost = ({ data, cmtid }: Props) => {
               </div>
             ) : images.length === 3 ? (
               <div className="flex">
-                {images?.map((index: number, item: number) => (
+                <div className="flex w-[100%]">
                   <LazyLoadImg
-                    index={index}
-                    images={images[item]?.linkImage}
-                    className="max-h-[300px] w-[50%] mx-[2px]"
+                    index={0}
+                    images={images[0]?.linkImage}
+                    className="max-h-[360px] w-[50%] mx-[2px] h-[auto] contain"
                   />
-                ))}
+
+                  <div className="w-[50%]">
+                    <LazyLoadImg
+                      index={0}
+                      images={images[1]?.linkImage}
+                      className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                    />
+
+                    <LazyLoadImg
+                      index={0}
+                      images={images[2]?.linkImage}
+                      className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                    />
+                  </div>
+                </div>
               </div>
             ) : images.length === 1 && videos.length === 1 ? (
               <div className="flex flex-col">
@@ -465,7 +483,7 @@ const CardPost = ({ data, cmtid }: Props) => {
                   <LazyLoadImg
                     index={index}
                     images={images[item]?.linkImage}
-                    className="w-[100%]"
+                    className=" w-[1000%] "
                   />
                 ))}
               </div>

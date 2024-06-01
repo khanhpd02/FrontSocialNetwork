@@ -11,6 +11,8 @@ import { logoutSuccess } from "../../redux/features/login/loginSlice";
 import { FiSearch } from "react-icons/fi";
 import { IoReloadOutline } from "react-icons/io5";
 import LazyLoadImg from "../../components/common/LazyLoadImg/LazyLoadImg";
+import { TfiUnlock } from "react-icons/tfi";
+import { IoLockClosedOutline } from "react-icons/io5";
 interface Comment {
   userId: string;
   fullName: string;
@@ -21,6 +23,7 @@ interface Comment {
   phoneNumber: string;
   images: any;
   content: string;
+  baned: any;
   // Other prope  rties...
 }
 interface ResponseData {
@@ -47,12 +50,13 @@ const Admin = () => {
   const [active, setActive] = useState(false);
   const [username, setUsername] = useState<string>("");
   const [sb, setSb] = useState(false);
+  const [sb1, setSb1] = useState(false);
   const [sbP, setSbP] = useState(false);
   const fetchDataUser = async () => {
     setAuthToken(to);
     try {
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/admin/user/getAll`
+        `https://truongnetwwork.bsite.net/api/admin/user/getAll`
       );
       console.log(response.data.data.images?.[0].linkImage);
       setDataUser(response.data);
@@ -73,11 +77,26 @@ const Admin = () => {
     try {
       // const data =;
       const res = await api.post(
-        `https://www.socialnetwork.somee.com/api/admin/user/DeleteUserById?userId=${id}`
+        `https://truongnetwwork.bsite.net/api/admin/user/DeleteUserById?userId=${id}`
       );
       console.log(res.data);
       fetchDataUser();
       setSb(false);
+    } catch (error) {
+      console.error("Add sai!", error);
+    }
+  };
+  const hanldUnban1 = async (id: string) => {
+    setAuthToken(to);
+    console.log(id);
+    try {
+      // const data =;
+      const res = await api.post(
+        `https://truongnetwwork.bsite.net/api/admin/user/UnBaned?userId=${id}`
+      );
+      console.log(res.data);
+      fetchDataUser();
+      setSb1(false);
     } catch (error) {
       console.error("Add sai!", error);
     }
@@ -87,7 +106,7 @@ const Admin = () => {
     setAuthToken(to);
     try {
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/admin/user/GetAllPostsAdmin`
+        `https://truongnetwwork.bsite.net/api/admin/user/GetAllPostsAdmin`
       );
       console.log(response.data.data.images?.[0].linkImage);
       setData(response.data);
@@ -106,7 +125,7 @@ const Admin = () => {
     try {
       // const data =;
       const res = await api.post(
-        `https://www.socialnetwork.somee.com/api/admin/user/DeletePostAdmin?postId=${id}`
+        `https://truongnetwwork.bsite.net/api/admin/user/DeletePostAdmin?postId=${id}`
       );
       console.log(res.data);
       fetchData();
@@ -131,7 +150,7 @@ const Admin = () => {
     setAuthToken(to);
     setLoadUser(false);
     return api
-      .get(`https://www.socialnetwork.somee.com/api/infor/searchuser`, {
+      .get(`https://truongnetwwork.bsite.net/api/infor/searchuser`, {
         params: { fullname: username }, // Use params to send data in the query string
       })
       .then((res) => {
@@ -148,14 +167,23 @@ const Admin = () => {
     }
   };
   const [idPhuUser, setIdPhuUser] = useState("");
+  const [idPhuUser1, setIdPhuUser1] = useState("");
   const [idPhuPost, setIdPhuPost] = useState("");
   const hanldeDelete = (id: string) => {
     setIdPhuUser(id);
     setSb(true);
   };
+  const hanldeUnban = (id: string) => {
+    setIdPhuUser1(id);
+    setSb1(true);
+  };
   const handleCancel = () => {
     // Xử lý khi nhấn hủy
     setSb(false);
+  };
+  const handleCancel1 = () => {
+    // Xử lý khi nhấn hủy
+    setSb1(false);
   };
   const hanldeDeletePost = (id: string) => {
     setIdPhuPost(id);
@@ -189,49 +217,7 @@ const Admin = () => {
             <i className="fas fa-tachometer-alt mr-3"></i>
             Dashboard
           </a>
-          <a
-            href="blank.html"
-            className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item"
-          >
-            <i className="fas fa-sticky-note mr-3"></i>
-            Blank Page
-          </a>
-          <a
-            href="tables.html"
-            className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item"
-          >
-            <i className="fas fa-table mr-3"></i>
-            Tables
-          </a>
-          <a
-            href="forms.html"
-            className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item"
-          >
-            <i className="fas fa-align-left mr-3"></i>
-            Forms
-          </a>
-          <a
-            href="tabs.html"
-            className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item"
-          >
-            <i className="fas fa-tablet-alt mr-3"></i>
-            Tabbed Content
-          </a>
-          <a
-            href="calendar.html"
-            className="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item"
-          >
-            <i className="fas fa-calendar mr-3"></i>
-            Calendar
-          </a>
         </nav>
-        <a
-          href="#"
-          className="absolute w-full upgrade-btn bottom-0 bg-[#1947ee] text-white flex items-center justify-center py-4"
-        >
-          <i className="fas fa-arrow-circle-up mr-3"></i>
-          Upgrade to Pro!
-        </a>
       </aside>
 
       <div className="w-full flex flex-col h-screen overflow-y-hidden">
@@ -243,7 +229,7 @@ const Admin = () => {
           >
             <div
               onClick={() => setActive(!active)}
-              className="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none"
+              className="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 hover:border-gray-300 focus:border-gray-300 focus:outline-none"
             >
               <img src={info?.data?.image} />
             </div>
@@ -402,6 +388,9 @@ const Admin = () => {
                       <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         Phone Number
                       </th>
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        Status
+                      </th>
                       <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"></th>
                     </tr>
                   </thead>
@@ -444,21 +433,46 @@ const Admin = () => {
                               {dataUser.data[index]?.phoneNumber}
                             </p>
                           </td>
+                          <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-left">
+                            <p className="text-gray-900 whitespace-no-wrap">
+                              {dataUser.data[index]?.baned.toString() === "true"
+                                ? "Locked"
+                                : "Active"}
+                            </p>
+                          </td>
                           <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm  ">
-                            <span
-                              className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                              onClick={() =>
-                                hanldeDelete(dataUser.data[index]?.userId)
-                              }
-                            >
+                            {dataUser.data[index]?.baned.toString() ===
+                            "true" ? (
                               <span
-                                aria-hidden
-                                className="absolute inset-0 bg-[#fee4e4] opacity-50 rounded-full cursor-pointer"
-                              ></span>
-                              <span className="relative">
-                                <IoTrashBinOutline />
+                                className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                                onClick={() =>
+                                  hanldeUnban(dataUser.data[index]?.userId)
+                                }
+                              >
+                                <span
+                                  aria-hidden
+                                  className="absolute inset-0 bg-[#fee4e4] opacity-50 rounded-full cursor-pointer"
+                                ></span>
+                                <span className="relative">
+                                  <IoLockClosedOutline />
+                                </span>
                               </span>
-                            </span>
+                            ) : (
+                              <span
+                                className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
+                                onClick={() =>
+                                  hanldeDelete(dataUser.data[index]?.userId)
+                                }
+                              >
+                                <span
+                                  aria-hidden
+                                  className="absolute inset-0 bg-[#fee4e4] opacity-50 rounded-full cursor-pointer"
+                                ></span>
+                                <span className="relative">
+                                  <TfiUnlock />
+                                </span>
+                              </span>
+                            )}
                           </td>
                         </tr>
                       ))}
@@ -636,6 +650,104 @@ const Admin = () => {
               </button>{" "}
               <button
                 onClick={() => hanldDltUser(idPhuUser)}
+                style={{
+                  borderRadius: "20px",
+                  padding: "12px 24px 12px 24px",
+                  border: 0,
+                  background: "#456fe6",
+                  color: "#FEFEFE",
+                  fontFamily: "Plus Jakarta Sans",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                  lineHeight: "17.64px",
+                  textAlign: "center",
+                }}
+              >
+                Xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {sb1 && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "rgba(0, 0, 0, 0.5)",
+            width: "100%",
+            height: "100%",
+            zIndex: 999,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              padding: "25px 20px",
+              borderRadius: "16px",
+              textAlign: "center",
+              width: "20%",
+            }}
+          >
+            {/* Nội dung form đặt lịch */}
+            <h2
+              style={{
+                fontFamily: "Plus Jakarta Sans",
+                fontWeight: 600,
+                fontSize: "20px",
+                lineHeight: "25.2px",
+                textAlign: "center",
+                color: "#111111",
+              }}
+            >
+              Xác nhận unban user
+            </h2>
+            <p
+              style={{
+                marginBottom: "0",
+                fontFamily: "Plus Jakarta Sans",
+                fontWeight: 500,
+                fontSize: "14px",
+                lineHeight: "17.64px",
+                textAlign: "center",
+                color: "#78828A",
+              }}
+            >
+              Bạn có muốn unban này?
+            </p>
+            <div
+              style={{
+                marginTop: "20px",
+                width: "80%",
+                display: "flex",
+                justifyContent: "space-around",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              <button
+                onClick={handleCancel1}
+                style={{
+                  marginBottom: "0",
+                  fontFamily: "Plus Jakarta Sans",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                  lineHeight: "17.64px",
+                  textAlign: "center",
+                  color: "#456fe6",
+                  border: "0",
+                  background: "transparent ",
+                }}
+              >
+                Hủy
+              </button>{" "}
+              <button
+                onClick={() => hanldUnban1(idPhuUser1)}
                 style={{
                   borderRadius: "20px",
                   padding: "12px 24px 12px 24px",

@@ -6,6 +6,7 @@ import {
 
   } from "./addReelsSlice";
 import { api, setAuthToken } from "../../../utils/setAuthToken";
+import toast from "react-hot-toast";
 
 
  export const addReelss = async (dispatch: any, formData: any, type:string): Promise<void> => {
@@ -21,6 +22,7 @@ import { api, setAuthToken } from "../../../utils/setAuthToken";
           "Content-Type": "multipart/form-data",
         },
       });
+      toast.success("Thêm Reels thành công!");
       dispatch(addReelsSuccess(res.data));
     }
     else {
@@ -29,14 +31,15 @@ import { api, setAuthToken } from "../../../utils/setAuthToken";
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      });
+      
+      });  toast.success("Thêm Reels thành công!");
       dispatch(addReelsSuccess(res.data));
     }
    
    
    
   } catch (err) {
-    console.error(err);
+    toast.error("Thêm Reels thất bại!");
     dispatch(addReelsFailure());
   }
 };

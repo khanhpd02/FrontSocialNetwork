@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "../../redux/store";
-import toast from "react-hot-toast";
 import { BsEmojiSmile } from "react-icons/bs";
 import addPosts from "../../assets/add-post.svg";
 import { MdOutlineClose } from "react-icons/md";
@@ -105,14 +104,13 @@ const AddPost = () => {
     console.log(dataAddPost);
     if (dataAddPost?.success === true) {
       setIsLoading(false);
-      toast.success("Thêm post thành công!");
+      // toast.success("Thêm post thành công!");
       setContent("");
       setUploadedFiles([]);
     }
     if (error == true && isFetching == false) {
       setIsLoading(false);
       console.log(error);
-      toast.error("Thêm post thất bại!");
     }
   }, [dataAddPost, error, isFetching]);
   const removeImage = (indexToRemove: number) => {

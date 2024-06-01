@@ -74,7 +74,7 @@
 
 //       await api
 //         .post(
-//           "https://www.socialnetwork.somee.com/api/post/share",
+//           "https://truongnetwwork.bsite.net/api/post/share",
 //           {
 //             PostId: PostId,
 //             LevelView: selectedItem?.key,
@@ -314,7 +314,7 @@ const ShareLayout = ({ PostId }: Props) => {
     try {
       await api
         .post(
-          "https://www.socialnetwork.somee.com/api/post/share",
+          "https://truongnetwwork.bsite.net/api/post/share",
           {
             PostId: PostId,
             LevelView: selectedItem.key,

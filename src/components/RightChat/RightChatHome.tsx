@@ -24,7 +24,7 @@ const RightChatHome = () => {
       try {
         const fullName = data.user?.displayName;
         const responseInfo = await api.get(
-          "https://www.socialnetwork.somee.com/api/infor/searchuser",
+          "https://truongnetwwork.bsite.net/api/infor/searchuser",
           {
             params: { fullname: fullName },
           }
@@ -42,7 +42,7 @@ const RightChatHome = () => {
       // setName(updateUserName(data.user.uid));
       try {
         const responseInfo = await api.get(
-          "https://www.socialnetwork.somee.com/api/infor/myinfor"
+          "https://truongnetwwork.bsite.net/api/infor/myinfor"
         );
         setName2(responseInfo.data.data.userId.slice(0, 10));
         setUserName2(responseInfo.data.data.fullName);

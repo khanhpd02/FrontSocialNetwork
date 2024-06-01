@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { FaUserFriends } from "react-icons/fa";
 import { FaEarthAmericas } from "react-icons/fa6";
@@ -14,17 +14,19 @@ interface Props {
   data: any;
 }
 const CardReelsSimple = ({ data }: Props) => {
-  console.log(data);
   const { info } = useSelector((state: RootState) => state.info);
-  const [videos] = useState(data.videos);
+  const [videos, setVideos] = useState(data.videos);
   const token = useRecoilValue(tokenState);
   const [, setUpdateReelsR] = useRecoilState(updateReels);
+  useEffect(() => {
+    setVideos(data.videos);
+  }, [data.videos]);
   const hanldDltReels = async () => {
     setAuthToken(token);
     console.log(data.id);
     return api
       .post(
-        `https://www.socialnetwork.somee.com/api/real/DeleteReels?reelIds=${data.id}`
+        `https://truongnetwwork.bsite.net/api/real/DeleteReels?reelIds=${data.id}`
       )
       .then((res) => {
         console.log(res);

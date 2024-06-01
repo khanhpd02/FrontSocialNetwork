@@ -49,9 +49,7 @@ const Personal = () => {
     // Gọi API để lấy dữ liệu
 
     await api
-      .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/Friend/getAll`
-      )
+      .get<ResponseData>(`https://truongnetwwork.bsite.net/api/Friend/getAll`)
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
@@ -70,7 +68,7 @@ const Personal = () => {
       try {
         const id = info.data.userId;
         const response = await api.get<ResponseData>(
-          `https://www.socialnetwork.somee.com/api/post/user/${id}`
+          `https://truongnetwwork.bsite.net/api/post/user/${id}`
         );
         console.log(response);
         setLengthPost(response.data.data.length);

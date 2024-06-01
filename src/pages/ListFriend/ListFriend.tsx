@@ -38,9 +38,7 @@ const ListFriend = () => {
     // Gọi API để lấy dữ liệu
 
     await api
-      .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/Friend/getAll`
-      )
+      .get<ResponseData>(`https://truongnetwwork.bsite.net/api/Friend/getAll`)
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
@@ -61,7 +59,7 @@ const ListFriend = () => {
     setAuthToken(token);
     try {
       const response = await api.delete(
-        `https://www.socialnetwork.somee.com/api/Friend/unfriend/${id}`
+        `https://truongnetwwork.bsite.net/api/Friend/unfriend/${id}`
       );
       if (response.status == 200) {
         loadData();

@@ -30,7 +30,7 @@ const ListFriendPersonalRQ = () => {
 
     await api
       .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/Friend/getAllNotFriend`
+        `https://truongnetwwork.bsite.net/api/Friend/getAllNotFriend`
       )
       .then((response) => {
         // Cập nhật dữ liệu vào state

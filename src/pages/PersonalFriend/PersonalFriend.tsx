@@ -91,7 +91,7 @@ const PersonalFriend = () => {
     // Gọi API để lấy dữ liệu
 
     await api
-      .get(`https://www.socialnetwork.somee.com/api/infor/user/${id}`)
+      .get(`https://truongnetwwork.bsite.net/api/infor/user/${id}`)
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
@@ -110,7 +110,7 @@ const PersonalFriend = () => {
     try {
       const id = idfriend;
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/Friend/send/${id}`
+        `https://truongnetwwork.bsite.net/api/Friend/send/${id}`
       );
 
       if (response.status == 200) {
@@ -126,7 +126,7 @@ const PersonalFriend = () => {
       const id = idfriend;
       console.log(1);
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/Friend/accept/${id}`
+        `https://truongnetwwork.bsite.net/api/Friend/accept/${id}`
       );
       if (response.status == 200) {
         loadDataInfo();
@@ -138,7 +138,7 @@ const PersonalFriend = () => {
   const handleUpLevelF1 = async (idfriend: any) => {
     try {
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/Friend/updateFriendLevel`,
+        `https://truongnetwwork.bsite.net/api/Friend/updateFriendLevel`,
         {
           user2: idfriend,
           level: "4",
@@ -159,7 +159,7 @@ const PersonalFriend = () => {
     try {
       console.log(1);
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/Friend/updateFriendLevel`,
+        `https://truongnetwwork.bsite.net/api/Friend/updateFriendLevel`,
         {
           user2: idfriend,
           level: "5",
@@ -179,7 +179,7 @@ const PersonalFriend = () => {
     try {
       const id = idfriend;
       const response = await api.post(
-        `https://www.socialnetwork.somee.com/api/Friend/refuseFriend/${id}`
+        `https://truongnetwwork.bsite.net/api/Friend/refuseFriend/${id}`
       );
       console.log(response);
       if (response.status == 200) {
@@ -197,7 +197,7 @@ const PersonalFriend = () => {
     setAuthToken(token);
     try {
       const response = await api.delete(
-        `https://www.socialnetwork.somee.com/api/Friend/unfriend/${id}`
+        `https://truongnetwwork.bsite.net/api/Friend/unfriend/${id}`
       );
       if (response.status == 200) {
         loadDataInfo();
@@ -218,7 +218,7 @@ const PersonalFriend = () => {
     const fetchData = async () => {
       try {
         const response = await api.get<ResponseData>(
-          `https://www.socialnetwork.somee.com/api/post/user/${id}`
+          `https://truongnetwwork.bsite.net/api/post/user/${id}`
         );
 
         // setLengthPost(response.data.data.length);

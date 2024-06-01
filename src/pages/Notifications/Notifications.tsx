@@ -58,7 +58,7 @@ const Notifications = () => {
     // Gọi API để lấy dữ liệu
     await api
       .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/Notify/getNotifies`
+        `https://truongnetwwork.bsite.net/api/Notify/getNotifies`
       )
       .then((response) => {
         // Cập nhật dữ liệu vào state
@@ -79,7 +79,7 @@ const Notifications = () => {
 
     await api
       .get<ResponseData>(
-        `https://www.socialnetwork.somee.com/api/Notify/getAcceptFriendNotifies`
+        `https://truongnetwwork.bsite.net/api/Notify/getAcceptFriendNotifies`
       )
       .then((response) => {
         // Cập nhật dữ liệu vào state
