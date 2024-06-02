@@ -93,13 +93,14 @@ const CardPostShare = ({ data }: Props) => {
     setImages(data.images);
   }, [data.images]);
   useEffect(() => {
-    if (dataAddCmt && dataAddCmt.data && dataAddCmt.data.success === true) {
+    if (dataAddCmt?.data.success === true) {
       // setLoadCmt1(false);
       setLoadCmt(false);
       setLoadCmtChild(false);
       setContent("");
       setContentChild("");
       loadData();
+      loadDataShare();
     }
   }, [dataAddCmt]);
   const [postId] = useState(data.id);
