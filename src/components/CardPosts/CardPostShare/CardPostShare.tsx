@@ -387,7 +387,7 @@ const CardPostShare = ({ data }: Props) => {
       .then((res) => {
         if (res.status === 200) {
           console.log(res);
-          loadData();
+          loadDataShare();
         }
       })
       .catch((err) => console.log(err));
