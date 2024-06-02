@@ -199,7 +199,7 @@ const Home = () => {
           <>
             <div className=" overflow-y-auto relative left-[20.5rem] top-[50px] w-[58vw]">
               {" "}
-              <div className="flex justify-center min-[1367px]:pl-16 ">
+              <div className="flex justify-center min-[1920px]:pl-60 pl-16">
                 <CardReels data={reels} />
               </div>
             </div>
