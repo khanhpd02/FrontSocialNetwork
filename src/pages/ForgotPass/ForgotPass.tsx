@@ -88,12 +88,10 @@ const ForgotPass = () => {
 
   return (
     <>
-      <div
+      <img
+        src={ImgA1}
         style={{
-          backgroundImage: `url(${ImgA1})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          objectFit: "cover",
           position: "fixed", // hoặc position: "absolute"
           zIndex: "-100",
           top: 0,
@@ -101,7 +99,8 @@ const ForgotPass = () => {
           width: "100vw",
           height: "100vh",
         }}
-      ></div>
+        alt="Background"
+      />
       <div className="w-[auto] h-[100vh] flex flex-col justify-around items-center lg:grid lg:grid-cols-2">
         <div className="flex justify-center">
           <img src={ImageMain1} className="button w-[60%]" />
