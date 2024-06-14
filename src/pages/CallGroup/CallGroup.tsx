@@ -1,4 +1,7 @@
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { RootState } from "../../redux/store";
 function randomID(len: any) {
   let result = "";
   if (result) return result;
@@ -14,10 +17,13 @@ function randomID(len: any) {
 
 export function getUrlParams(url = window.location.href) {
   const urlStr = url.split("?")[1];
+  console.log(urlStr);
   return new URLSearchParams(urlStr);
 }
 const CallGroup = () => {
-  const roomID = getUrlParams().get("roomID") || randomID(5);
+  const { id } = useParams();
+  const { info } = useSelector((state: RootState) => state.info);
+  console.log(info.data);
   const myMeeting = async (element: any) => {
     // generate Kit Token
     const appID = 67139489;
@@ -25,11 +31,10 @@ const CallGroup = () => {
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
-      roomID,
+      id || "",
       randomID(5),
-      randomID(5)
+      info.data.fullName
     );
-    console.log(234);
     // Create instance object from Kit Token.
     const zp = ZegoUIKitPrebuilt.create(kitToken);
     console.log(zp);
@@ -45,11 +50,11 @@ const CallGroup = () => {
             window.location.host +
             window.location.pathname +
             "?roomID=" +
-            roomID,
+            id,
         },
       ],
       scenario: {
-        mode: ZegoUIKitPrebuilt.OneONoneCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
+        mode: ZegoUIKitPrebuilt.GroupCall, // To implement 1-on-1 calls, modify the parameter here to [ZegoUIKitPrebuilt.OneONoneCall].
       },
     });
   };
@@ -60,7 +65,9 @@ const CallGroup = () => {
       className="relative left-[23rem]"
       ref={myMeeting}
       style={{ width: "75vw", height: "100vh" }}
-    ></div>
+    >
+      sss
+    </div>
   );
 };
 

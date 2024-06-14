@@ -5,7 +5,12 @@ import { IoMdClose } from "react-icons/io";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { api, setAuthToken } from "../../../utils/setAuthToken";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { tokenState, ShareS, isUpdatePost } from "../../../recoil/initState";
+import {
+  tokenState,
+  ShareS,
+  isUpdatePost,
+  ImagesRecoil,
+} from "../../../recoil/initState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { HiOutlineMicrophone } from "react-icons/hi2";
@@ -21,6 +26,7 @@ import { MdOutlineEdit } from "react-icons/md";
 import toast from "react-hot-toast";
 import EditPost from "../../EditPost/EditPost";
 import LazyLoadImg from "../../common/LazyLoadImg/LazyLoadImg";
+import { ImageSlider } from "../../common/ImgSlider/ImageSlider";
 interface Comment {
   childrenComment: [];
   id: string;
@@ -67,6 +73,7 @@ const CardPost = ({ data, cmtid }: Props) => {
   const [IdShare, setIdShare] = useState("");
   const [IdEdit, setIdEdit] = useState("");
   const [loadShare, setLoadShare] = useRecoilState(ShareS);
+  const [ImagesRecoilR, setImagesRecoil] = useRecoilState(ImagesRecoil);
   const [like, setLike] = useState(data.islike);
   const [dataCmt, setData] = useState<ResponseData>({
     data: [],
@@ -354,6 +361,11 @@ const CardPost = ({ data, cmtid }: Props) => {
     setIdEdit(data.id);
     setLoadShare("2");
   };
+  const handleImage = () => {
+    setIdEdit(data.id);
+    setImagesRecoil(data.images);
+    setLoadShare("3");
+  };
   useEffect(() => {
     scrollToWow(); // Scroll sau khi dữ liệu đã được tải
   }, [dataCmt]);
@@ -426,41 +438,41 @@ const CardPost = ({ data, cmtid }: Props) => {
         <div>
           <>
             {images.length === 2 ? (
-              <div className="flex">
+              <div className="flex" onClick={handleImage}>
                 {images?.map((index: number, item: number) => (
                   <LazyLoadImg
                     index={index}
                     images={images[item]?.linkImage}
-                    className="max-h-[300px] w-[50%] mx-[2px]"
+                    className="max-h-[300px] w-[50%] mx-[2px] object-cover"
                   />
                 ))}
               </div>
             ) : images.length === 3 ? (
               <div className="flex">
-                <div className="flex w-[100%]">
+                <div className="flex w-[100%]" onClick={handleImage}>
                   <LazyLoadImg
                     index={0}
                     images={images[0]?.linkImage}
-                    className="max-h-[360px] w-[50%] mx-[2px] h-[auto] contain"
+                    className="max-h-[360px] w-[50%] px-[1px] h-[auto] object-cover py-[1px]"
                   />
 
-                  <div className="w-[50%]">
+                  <div className="w-[50%] gap-1">
                     <LazyLoadImg
                       index={0}
                       images={images[1]?.linkImage}
-                      className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                      className="max-h-[180px] w-[100%]  h-[auto] object-cover p-[1px]"
                     />
 
                     <LazyLoadImg
                       index={0}
                       images={images[2]?.linkImage}
-                      className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                      className="max-h-[180px] w-[100%] h-[auto]  object-cover	p-[1px] border-solid "
                     />
                   </div>
                 </div>
               </div>
             ) : images.length === 1 && videos.length === 1 ? (
-              <div className="flex flex-col">
+              <div className="flex flex-col" onClick={handleImage}>
                 {images?.map((index: number, item: number) => (
                   <LazyLoadImg
                     index={index}
@@ -478,7 +490,7 @@ const CardPost = ({ data, cmtid }: Props) => {
                 ))}
               </div>
             ) : images.length === 1 ? (
-              <div className="flex">
+              <div className="flex" onClick={handleImage}>
                 {images?.map((index: number, item: number) => (
                   <LazyLoadImg
                     index={index}
@@ -486,6 +498,37 @@ const CardPost = ({ data, cmtid }: Props) => {
                     className=" w-[1000%] "
                   />
                 ))}
+              </div>
+            ) : images.length >= 4 ? (
+              <div className="flex">
+                <div className="flex w-[100%]" onClick={handleImage}>
+                  <LazyLoadImg
+                    index={0}
+                    images={images[0]?.linkImage}
+                    className="max-h-[360px] w-[50%] px-[1px] h-[auto] object-cover py-[1px]"
+                  />
+
+                  <div className="w-[50%] gap-1">
+                    <LazyLoadImg
+                      index={0}
+                      images={images[1]?.linkImage}
+                      className="max-h-[180px] w-[100%]  h-[auto] object-cover p-[1px]"
+                    />
+
+                    <div className="relative">
+                      <LazyLoadImg
+                        index={0}
+                        images={images[2]?.linkImage}
+                        className="max-h-[180px] w-[100%] h-[auto] object-cover p-[1px] border-solid border-white"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <span className="text-white text-2xl font-bold">
+                          +{images.length - 2}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (
               <>
@@ -785,6 +828,9 @@ const CardPost = ({ data, cmtid }: Props) => {
         <ShareLayout PostId={data.id} />
       )}
       {loadShare === "2" && IdEdit === data.id && <EditPost data={data} />}
+      {loadShare === "3" && IdEdit === data.id && (
+        <ImageSlider images={ImagesRecoilR} />
+      )}
     </div>
   );
 };

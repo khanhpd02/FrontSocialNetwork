@@ -518,7 +518,7 @@ const CardPostShare = ({ data }: Props) => {
                             key={item}
                             src={images[item]?.linkImage}
                             alt=""
-                            className="max-h-[300px] w-[50%] mx-[2px]"
+                            className="max-h-[300px] w-[50%] mx-[2px] object-cover"
                           />
                         ))}
                       </div>
@@ -528,20 +528,20 @@ const CardPostShare = ({ data }: Props) => {
                           <LazyLoadImg
                             index={0}
                             images={images[0]?.linkImage}
-                            className="max-h-[360px] w-[50%] mx-[2px] h-[auto] contain"
+                            className="max-h-[360px] w-[50%] mx-[2px] h-[auto] object-cover"
                           />
 
                           <div className="w-[50%]">
                             <LazyLoadImg
                               index={0}
                               images={images[1]?.linkImage}
-                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto] object-cover"
                             />
 
                             <LazyLoadImg
                               index={0}
                               images={images[2]?.linkImage}
-                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto]"
+                              className="max-h-[180px] w-[100%] mx-[2px] h-[auto] object-cover"
                             />
                           </div>
                         </div>
@@ -553,7 +553,7 @@ const CardPostShare = ({ data }: Props) => {
                             key={index}
                             src={images[index]?.linkImage}
                             alt=""
-                            className=" w-[100%]"
+                            className=" w-[100%] object-cover"
                           />
                         ))}
                         {videos?.map((index: number) => (
@@ -572,7 +572,7 @@ const CardPostShare = ({ data }: Props) => {
                             key={index}
                             src={images[item]?.linkImage}
                             alt=""
-                            className=" w-[100%]"
+                            className=" w-[100%] object-cover"
                           />
                         ))}
                       </div>
@@ -974,9 +974,6 @@ const CardPostShare = ({ data }: Props) => {
                     </div>
                   </div>
                 </div>
-                <div className="text-[25px] p-2 cursor-pointer hover:bg-[#f2f2f2] rounded-[50%] duration-500">
-                  <IoMdClose />
-                </div>
               </div>
               <div className="pb-4 px-4 flex justify-between items-center">
                 <div className="flex items-center">
@@ -995,7 +992,7 @@ const CardPostShare = ({ data }: Props) => {
                             key={item}
                             src={images[item]?.linkImage}
                             alt=""
-                            className="max-h-[300px] w-[50%] mx-[2px]"
+                            className="max-h-[300px] w-[50%] mx-[2px] object-cover"
                           />
                         ))}
                       </div>
@@ -1005,7 +1002,7 @@ const CardPostShare = ({ data }: Props) => {
                           <LazyLoadImg
                             index={0}
                             images={images[0]?.linkImage}
-                            className="max-h-[360px] w-[50%] mx-[2px] h-[auto] contain"
+                            className="max-h-[360px] w-[50%] mx-[2px] h-[auto] object-cover"
                           />
 
                           <div className="w-[50%]">

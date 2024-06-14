@@ -107,4 +107,8 @@ export const updateReels = atom({
   key: "updateReels",
   default: true,
 })
+export const ImagesRecoil = atom({
+  key: "ImagesRecoil",
+  default: [],
+})
 export default initState;
