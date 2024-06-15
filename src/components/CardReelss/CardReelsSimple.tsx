@@ -10,6 +10,12 @@ import { api, setAuthToken } from "../../utils/setAuthToken";
 import toast from "react-hot-toast";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { tokenState, updateReels } from "../../recoil/initState";
+import {
+  parseISO,
+  differenceInHours,
+  differenceInCalendarDays,
+  differenceInMinutes,
+} from "date-fns";
 interface Props {
   data: any;
 }
@@ -23,19 +29,55 @@ const CardReelsSimple = ({ data }: Props) => {
   }, [data.videos]);
   const hanldDltReels = async () => {
     setAuthToken(token);
-    console.log(data.id);
     return api
       .post(
         `https://truongnetwwork.bsite.net/api/real/DeleteReels?reelIds=${data.id}`
       )
-      .then((res) => {
-        console.log(res);
-
+      .then(() => {
         setUpdateReelsR(false);
         toast.error("Đã xóa Reels");
       })
       .catch((err) => console.log(err));
   };
+  const [inputTime] = useState(data.createDate);
+  const [result, setResult] = useState("");
+  const calculateDifference = () => {
+    const parsedInputTime = parseISO(inputTime);
+    const currentTime = new Date();
+
+    const totalMinutesDifference = differenceInMinutes(
+      currentTime,
+      parsedInputTime
+    );
+    const totalHoursDifference = differenceInHours(
+      currentTime,
+      parsedInputTime
+    );
+
+    if (parsedInputTime.toDateString() === currentTime.toDateString()) {
+      // Nếu ngày trùng
+      if (totalHoursDifference < 1) {
+        const minute = 60 + totalMinutesDifference;
+
+        setResult(`${minute} minutes`);
+      } else {
+        const hoursDifference = Math.floor(totalMinutesDifference / 60);
+        // const minutesDifference = totalMinutesDifference % 60;
+        setResult(`${hoursDifference} hours`);
+      }
+    } else {
+      // Nếu ngày không trùng
+      const daysDifference = differenceInCalendarDays(
+        currentTime,
+        parsedInputTime
+      );
+      // const hoursDifference = totalHoursDifference % 24;
+      setResult(`${daysDifference} days`);
+    }
+  };
+  useEffect(() => {
+    calculateDifference();
+  }, []);
   return (
     <div
       className="w-[500px] h-auto bg-white  mb-10 rounded-[10px] flex flex-col-reverse "
@@ -72,7 +114,7 @@ const CardReelsSimple = ({ data }: Props) => {
                         </span>
                         <div className="flex justify-start items-center ">
                           <span className="text-white text-[12px] mr-2 ">
-                            2 hours
+                            {result}
                           </span>
                           <>
                             {data.levelView == 1 ? (

@@ -26,6 +26,12 @@ import toast from "react-hot-toast";
 import LazyLoadImg from "../../common/LazyLoadImg/LazyLoadImg";
 import { MdOutlineEdit } from "react-icons/md";
 import EditPostShare from "../../EditPostShare/EditPostShare";
+import {
+  parseISO,
+  differenceInHours,
+  differenceInCalendarDays,
+  differenceInMinutes,
+} from "date-fns";
 interface Comment {
   childrenComment: any;
   id: string;
@@ -77,7 +83,84 @@ const CardPostShare = ({ data }: Props) => {
     success: false,
     message: "",
   });
-  console.log(images);
+
+  const [inputTimeShare] = useState(data.createDateShare);
+  const [inputTime] = useState(data.createDate);
+  const [result, setResult] = useState("");
+  const [resultShare, setResultShare] = useState("");
+  const calculateDifference = () => {
+    const parsedInputTime = parseISO(inputTime);
+    const currentTime = new Date();
+
+    const totalMinutesDifference = differenceInMinutes(
+      currentTime,
+      parsedInputTime
+    );
+    const totalHoursDifference = differenceInHours(
+      currentTime,
+      parsedInputTime
+    );
+
+    if (parsedInputTime.toDateString() === currentTime.toDateString()) {
+      console.log(totalHoursDifference);
+      // Nếu ngày trùng
+      if (totalHoursDifference < 1) {
+        const minute = 60 + totalMinutesDifference;
+
+        setResult(`${minute} minutes`);
+      } else {
+        const hoursDifference = Math.floor(totalMinutesDifference / 60);
+        // const minutesDifference = totalMinutesDifference % 60;
+        setResult(`${hoursDifference} hours`);
+      }
+    } else {
+      // Nếu ngày không trùng
+      const daysDifference = differenceInCalendarDays(
+        currentTime,
+        parsedInputTime
+      );
+      // const hoursDifference = totalHoursDifference % 24;
+      setResult(`${daysDifference} days`);
+    }
+  };
+  const calculateDifferenceShare = () => {
+    const parsedInputTime = parseISO(inputTimeShare);
+    const currentTime = new Date();
+
+    const totalMinutesDifference = differenceInMinutes(
+      currentTime,
+      parsedInputTime
+    );
+    const totalHoursDifference = differenceInHours(
+      currentTime,
+      parsedInputTime
+    );
+
+    if (parsedInputTime.toDateString() === currentTime.toDateString()) {
+      // Nếu ngày trùng
+      if (totalHoursDifference < 1) {
+        const minute = 60 + totalMinutesDifference;
+
+        setResultShare(`${minute} minutes`);
+      } else {
+        const hoursDifference = Math.floor(totalMinutesDifference / 60);
+        // const minutesDifference = totalMinutesDifference % 60;
+        setResultShare(`${hoursDifference} hours`);
+      }
+    } else {
+      // Nếu ngày không trùng
+      const daysDifference = differenceInCalendarDays(
+        currentTime,
+        parsedInputTime
+      );
+      // const hoursDifference = totalHoursDifference % 24;
+      setResultShare(`${daysDifference} days`);
+    }
+  };
+  useEffect(() => {
+    calculateDifference();
+    calculateDifferenceShare();
+  }, []);
   const { info } = useSelector((state: RootState) => state.info);
   type DataType = YourExistingDataType | null;
   const dataAddCmt = useSelector(
@@ -386,7 +469,6 @@ const CardPostShare = ({ data }: Props) => {
       .post(`https://truongnetwwork.bsite.net/api/cmt/deleteOrUndo/${parentId}`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
           loadDataShare();
         }
       })
@@ -406,13 +488,11 @@ const CardPostShare = ({ data }: Props) => {
   const [, setSsUpdatePost] = useRecoilState(isUpdatePost);
   const hanldDltPost = async (idShare: string) => {
     setAuthToken(token);
-    console.log(idShare);
     return api
       .delete(
         `https://truongnetwwork.bsite.net/api/post/share/delete?shareId=${idShare}`
       )
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setSsUpdatePost(false);
           toast.error("Đã xóa bài viết");
@@ -451,7 +531,7 @@ const CardPostShare = ({ data }: Props) => {
               </span>
               <div className="flex justify-start items-center text-left">
                 <span className="text-light-3 text-[12px] mr-2 text-left">
-                  2 hours
+                  {resultShare}
                 </span>
                 <>
                   {data.levelViewShare == 1 ? (
@@ -511,7 +591,7 @@ const CardPostShare = ({ data }: Props) => {
               <div>
                 <div>
                   <>
-                    {images.length === 2 ? (
+                    {images.length === 2 && videos.length == 0 ? (
                       <div className="flex">
                         {images?.map((_: any, item: number) => (
                           <img
@@ -546,23 +626,33 @@ const CardPostShare = ({ data }: Props) => {
                           </div>
                         </div>
                       </div>
-                    ) : images.length === 1 && videos.length === 1 ? (
-                      <div className="flex flex-col">
-                        {images?.map((index: number) => (
+                    ) : images.length !== 0 && videos.length !== 0 ? (
+                      <div className="flex">
+                        {images.length === 1 ? (
                           <img
-                            key={index}
-                            src={images[index]?.linkImage}
-                            alt=""
-                            className=" w-[100%] object-cover"
+                            src={images[0]?.linkImage}
+                            alt="img"
+                            className="w-[50%] mx-[2px] object-cover h-auto"
                           />
-                        ))}
-                        {videos?.map((index: number) => (
-                          <div className="mt-2 p-3">
-                            {" "}
-                            <div className=" border-[5px] border-[#456fe6] border-solid">
-                              <CustomVideo src={videos[index]?.link} />
+                        ) : (
+                          <div className="w-[50%] mx-[2px] object-cover relative">
+                            <img
+                              src={images[0]?.linkImage}
+                              className="w-[100%]  h-full object-cover p-[1px] border-solid border-white"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                              <span className="text-white text-2xl font-bold">
+                                +{images.length - 1}
+                              </span>
                             </div>
                           </div>
+                        )}
+
+                        {videos?.map((_: any, item: number) => (
+                          <CustomVideo
+                            src={videos[item]?.link}
+                            classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
+                          />
                         ))}
                       </div>
                     ) : images.length === 1 ? (
@@ -578,9 +668,12 @@ const CardPostShare = ({ data }: Props) => {
                       </div>
                     ) : (
                       <>
-                        {videos?.map((item: number) => (
+                        {videos?.map((_: any, item: number) => (
                           <div className="">
-                            <CustomVideo src={videos[item]?.link} />
+                            <CustomVideo
+                              src={videos[item]?.link}
+                              classsName="w-[100%] max-h-[400px] bg-black"
+                            />
                           </div>
                           // <video
                           //   key={index}
@@ -608,7 +701,7 @@ const CardPostShare = ({ data }: Props) => {
                     </span>
                     <div className="flex justify-start items-center">
                       <span className="text-light-3 text-[12px] mr-2">
-                        2 hours
+                        {result}
                       </span>
                       <>
                         {data.levelView == 1 ? (
@@ -956,7 +1049,7 @@ const CardPostShare = ({ data }: Props) => {
                     </span>
                     <div className="flex justify-start items-center">
                       <span className="text-light-3 text-[12px] mr-2">
-                        2 hours
+                        {result}
                       </span>
                       <>
                         {data.levelView == 1 ? (
@@ -985,7 +1078,7 @@ const CardPostShare = ({ data }: Props) => {
               <div>
                 <div>
                   <>
-                    {images.length === 2 ? (
+                    {images.length === 2 && videos.length == 0 ? (
                       <div className="flex">
                         {images?.map((_: any, item: number) => (
                           <img
@@ -1020,23 +1113,33 @@ const CardPostShare = ({ data }: Props) => {
                           </div>
                         </div>
                       </div>
-                    ) : images.length === 1 && videos.length === 1 ? (
-                      <div className="flex flex-col">
-                        {images?.map((index: number, item: number) => (
+                    ) : images.length !== 0 && videos.length !== 0 ? (
+                      <div className="flex">
+                        {images.length === 1 ? (
                           <img
-                            key={index}
-                            src={images[item]?.linkImage}
-                            alt=""
-                            className=" w-[100%]"
+                            src={images[0]?.linkImage}
+                            alt="img"
+                            className="w-[50%] mx-[2px] object-cover h-auto"
                           />
-                        ))}
-                        {videos?.map((item: number) => (
-                          <div className="mt-2 p-3">
-                            {" "}
-                            <div className=" border-[5px] border-[#456fe6] border-solid">
-                              <CustomVideo src={videos[item]?.link} />
+                        ) : (
+                          <div className="w-[50%] mx-[2px] object-cover relative">
+                            <img
+                              src={images[0]?.linkImage}
+                              className="w-[100%]  h-full object-cover p-[1px] border-solid border-white"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                              <span className="text-white text-2xl font-bold">
+                                +{images.length - 1}
+                              </span>
                             </div>
                           </div>
+                        )}
+
+                        {videos?.map((_: any, item: number) => (
+                          <CustomVideo
+                            src={videos[item]?.link}
+                            classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
+                          />
                         ))}
                       </div>
                     ) : images.length === 1 ? (
@@ -1052,9 +1155,12 @@ const CardPostShare = ({ data }: Props) => {
                       </div>
                     ) : (
                       <>
-                        {videos?.map((item: number) => (
+                        {videos?.map((_: any, item: number) => (
                           <div className="">
-                            <CustomVideo src={videos[item]?.link} />
+                            <CustomVideo
+                              src={videos[item]?.link}
+                              classsName="w-[100%] max-h-[400px] bg-black"
+                            />
                           </div>
                         ))}
                       </>

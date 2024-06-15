@@ -29,7 +29,7 @@ const JoinCallGroup = () => {
             type="button"
             onClick={joinRoom}
           >
-            Button
+            Join Room
           </button>
         </div>
       </div>

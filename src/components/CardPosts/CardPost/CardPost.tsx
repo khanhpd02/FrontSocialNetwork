@@ -27,6 +27,13 @@ import toast from "react-hot-toast";
 import EditPost from "../../EditPost/EditPost";
 import LazyLoadImg from "../../common/LazyLoadImg/LazyLoadImg";
 import { ImageSlider } from "../../common/ImgSlider/ImageSlider";
+import {
+  parseISO,
+  differenceInHours,
+  differenceInCalendarDays,
+  differenceInMinutes,
+} from "date-fns";
+
 interface Comment {
   childrenComment: [];
   id: string;
@@ -90,11 +97,45 @@ const CardPost = ({ data, cmtid }: Props) => {
   const handleSeeLess = () => {
     setVisibleComments(2);
   };
-  // const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.code === "Enter") {
-  //     handleAddPostBig();
-  //   }
-  // };
+  const [inputTime] = useState(data.createDate);
+  const [result, setResult] = useState("");
+  const calculateDifference = () => {
+    const parsedInputTime = parseISO(inputTime);
+    const currentTime = new Date();
+
+    const totalMinutesDifference = differenceInMinutes(
+      currentTime,
+      parsedInputTime
+    );
+    const totalHoursDifference = differenceInHours(
+      currentTime,
+      parsedInputTime
+    );
+
+    if (parsedInputTime.toDateString() === currentTime.toDateString()) {
+      // Nếu ngày trùng
+      if (totalHoursDifference < 1) {
+        const minute = 60 + totalMinutesDifference;
+
+        setResult(`${minute} minutes`);
+      } else {
+        const hoursDifference = Math.floor(totalMinutesDifference / 60);
+        // const minutesDifference = totalMinutesDifference % 60;
+        setResult(`${hoursDifference} hours`);
+      }
+    } else {
+      // Nếu ngày không trùng
+      const daysDifference = differenceInCalendarDays(
+        currentTime,
+        parsedInputTime
+      );
+      // const hoursDifference = totalHoursDifference % 24;
+      setResult(`${daysDifference} days`);
+    }
+  };
+  useEffect(() => {
+    calculateDifference();
+  }, []);
   useEffect(() => {
     setImages(data.images);
   }, [data.images]);
@@ -205,7 +246,6 @@ const CardPost = ({ data, cmtid }: Props) => {
     // Clean up interval on component unmount
     return () => clearInterval(interval);
   }, []);
-
   const handleVoiceClick = () => {
     const recognition = new ((window as any).SpeechRecognition ||
       (window as any).webkitSpeechRecognition)();
@@ -338,11 +378,10 @@ const CardPost = ({ data, cmtid }: Props) => {
   const [, setSsUpdatePost] = useRecoilState(isUpdatePost);
   const hanldDltPost = async () => {
     setAuthToken(token);
-    console.log(data.id);
+
     return api
       .delete(`https://truongnetwwork.bsite.net/api/post/${postId}`)
       .then((res) => {
-        console.log(res);
         if (res.status === 204) {
           setSsUpdatePost(false);
           toast.error("Đã xóa bài viết");
@@ -369,7 +408,7 @@ const CardPost = ({ data, cmtid }: Props) => {
   useEffect(() => {
     scrollToWow(); // Scroll sau khi dữ liệu đã được tải
   }, [dataCmt]);
-
+  console.log(data);
   return (
     <div
       className="w-[500px] h-auto bg-white  mb-10 rounded-[10px]"
@@ -390,7 +429,7 @@ const CardPost = ({ data, cmtid }: Props) => {
           <div className=" ml-4 text-left">
             <span className="text-[18px] font-[500] ">{data.fullName}</span>
             <div className="flex justify-start items-center ">
-              <span className="text-light-3 text-[12px] mr-2 ">2 hours</span>
+              <span className="text-light-3 text-[12px] mr-2 ">{result}</span>
               <>
                 {data.levelView == 1 ? (
                   <div className="text-light-3 ">
@@ -437,7 +476,7 @@ const CardPost = ({ data, cmtid }: Props) => {
       <div>
         <div>
           <>
-            {images.length === 2 ? (
+            {images.length === 2 && videos.length == 0 ? (
               <div className="flex" onClick={handleImage}>
                 {images?.map((index: number, item: number) => (
                   <LazyLoadImg
@@ -471,22 +510,37 @@ const CardPost = ({ data, cmtid }: Props) => {
                   </div>
                 </div>
               </div>
-            ) : images.length === 1 && videos.length === 1 ? (
-              <div className="flex flex-col" onClick={handleImage}>
-                {images?.map((index: number, item: number) => (
-                  <LazyLoadImg
-                    index={index}
-                    images={images[item]?.linkImage}
-                    className="w-[100%]"
+            ) : images.length !== 0 && videos.length !== 0 ? (
+              <div className="flex">
+                {images.length === 1 ? (
+                  <img
+                    src={images[0]?.linkImage}
+                    alt="img"
+                    className="w-[50%] mx-[2px] object-cover h-auto"
+                    onClick={handleImage}
                   />
-                ))}
-                {videos?.map((item: number) => (
-                  <div className="mt-2 p-3">
-                    {" "}
-                    <div className=" border-[5px] border-[#456fe6] border-solid">
-                      <CustomVideo src={videos[item]?.link} />
+                ) : (
+                  <div
+                    className="w-[50%] mx-[2px] object-cover relative"
+                    onClick={handleImage}
+                  >
+                    <img
+                      src={images[0]?.linkImage}
+                      className="w-[100%]  h-full object-cover p-[1px] border-solid border-white"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">
+                        +{images.length - 1}
+                      </span>
                     </div>
                   </div>
+                )}
+
+                {videos?.map((_: any, item: number) => (
+                  <CustomVideo
+                    src={videos[item]?.link}
+                    classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
+                  />
                 ))}
               </div>
             ) : images.length === 1 ? (
@@ -495,7 +549,7 @@ const CardPost = ({ data, cmtid }: Props) => {
                   <LazyLoadImg
                     index={index}
                     images={images[item]?.linkImage}
-                    className=" w-[1000%] "
+                    className=" w-[100%] "
                   />
                 ))}
               </div>
@@ -532,9 +586,12 @@ const CardPost = ({ data, cmtid }: Props) => {
               </div>
             ) : (
               <>
-                {videos?.map((item: number) => (
+                {videos?.map((_: any, item: number) => (
                   <div className="">
-                    <CustomVideo src={videos[item]?.link} />
+                    <CustomVideo
+                      src={videos[item]?.link}
+                      classsName="w-[100%] max-h-[400px] bg-black"
+                    />
                   </div>
                   // <video
                   //   key={index}
