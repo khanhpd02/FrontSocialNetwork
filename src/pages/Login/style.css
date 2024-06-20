@@ -47,22 +47,14 @@
     visibility: hidden;
     transition: all ease-in-out 0.5s;
   }
-  .loader {
-    width: 25px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 8px solid lightblue;
-    border-right-color: orange;
-    animation: l2 1s infinite linear;
-  }
-  @keyframes l2 {to{transform: rotate(1turn)}}
+
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 25px;
   padding: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: #25b09b;
+  background: white;
   --_m: 
     conic-gradient(#0000 10%,#000),
     linear-gradient(#000 0 0) content-box;
