@@ -19,6 +19,7 @@ import getReels from "../../redux/features/reels/getReelsAPI";
 import ChatHome from "./ChatHome";
 import CardReels from "../../components/CardReelss/CardReels";
 import { useAppDispatch } from "../../hook/hook";
+import setLoadingPage from "../../utils/setLoadingPage";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -43,25 +44,33 @@ const Home = () => {
   const [post, setPost] = useState([]);
   const [reels, setReels] = useState([]);
   useEffect(() => {
+    setLoadingPage({ value: 30 });
     getPost(numberPost.toString()).then((data) => setPost(data));
+    setLoadingPage({ value: 100 });
   }, [numberPost]);
   useEffect(() => {
     if (isUpdatePostR == false) {
+      setLoadingPage({ value: 30 });
       getPost(numberPost.toString()).then((data) => setPost(data));
 
       setSsUpdatePost(true);
+      setLoadingPage({ value: 100 });
     }
   }, [isUpdatePostR]);
   useEffect(() => {
     if (isSharePostR == false) {
+      setLoadingPage({ value: 30 });
       setNumberPost((prevNumberPost) => prevNumberPost + 1);
       setIsSharePost(true);
+      setLoadingPage({ value: 100 });
     }
   }, [isSharePostR]);
   useEffect(() => {
     if (isSharePost1R == false) {
+      setLoadingPage({ value: 30 });
       setNumberPost((prevNumberPost) => prevNumberPost + 1);
       setIsSharePost1R(true);
+      setLoadingPage({ value: 100 });
     }
   }, [isSharePost1R]);
   useEffect(() => {
@@ -69,9 +78,10 @@ const Home = () => {
   }, []);
   useEffect(() => {
     if (updateReelsR === false) {
-      console.log(123456);
+      setLoadingPage({ value: 30 });
       getReels().then((data) => setReels(data));
       setUpdateReelsR(true);
+      setLoadingPage({ value: 100 });
     }
   }, [updateReelsR]);
   useEffect(() => {

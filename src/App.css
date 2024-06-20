@@ -2068,3 +2068,16 @@ button svg {
     animation: squish 200ms ease-in-out;
   }
 }
+/* HTML: <div class="loader"></div> */
+.loaderCR {
+  width: 120px;
+  height: 20px;
+  border-radius: 20px;
+  background:
+   linear-gradient(#456fe6 0 0) 0/0% no-repeat
+   lightblue;
+  animation: l2loaderCR 2s infinite steps(10);
+}
+@keyframes l2loaderCR {
+    100% {background-size:110%}
+}

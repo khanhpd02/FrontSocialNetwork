@@ -2,6 +2,7 @@ import React, { useEffect, memo, ReactNode } from "react";
 import Header from "../components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import HeaderTop from "../components/Header/HeaderTop";
+import TopLoader from "../components/TopLoader";
 interface IProps {
   children: ReactNode;
 }
@@ -32,7 +33,7 @@ const Public: React.FC<IProps> = ({ children }) => {
       }}
     >
       <HeaderTop />
-
+      <TopLoader />
       <Header />
       <>{children}</>
     </div>

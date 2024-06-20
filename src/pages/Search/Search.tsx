@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { tokenState } from "../../recoil/initState";
 import Skeleton from "react-loading-skeleton";
 import { useNavigate, useParams } from "react-router-dom";
+import setLoadingPage from "../../utils/setLoadingPage";
 interface Comment {
   // Add the actual properties of a post here
   id: number;
@@ -59,6 +60,7 @@ const Search = () => {
   };
   useEffect(() => {
     const hanldDltCmtChild = async () => {
+      setLoadingPage({ value: 30 });
       setLoadSearch(true);
       setAuthToken(token);
       // const postId = idPost;
@@ -73,6 +75,7 @@ const Search = () => {
         )
         .then((res) => {
           if (res.status === 200) {
+            setLoadingPage({ value: 100 });
             setData(res.data);
             console.log(res.data);
             setLoadSearch(false);

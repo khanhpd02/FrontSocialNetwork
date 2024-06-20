@@ -2,6 +2,8 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "../../redux/store";
+import { createRoom } from "../../recoil/initState";
+import { useRecoilState } from "recoil";
 function randomID(len: any) {
   let result = "";
   if (result) return result;
@@ -21,9 +23,10 @@ export function getUrlParams(url = window.location.href) {
   return new URLSearchParams(urlStr);
 }
 const CallGroup = () => {
+  const [, setCreateRoom] = useRecoilState(createRoom);
   const { id } = useParams();
   const { info } = useSelector((state: RootState) => state.info);
-  console.log(info.data);
+  setCreateRoom(false);
   const myMeeting = async (element: any) => {
     // generate Kit Token
     const appID = 67139489;

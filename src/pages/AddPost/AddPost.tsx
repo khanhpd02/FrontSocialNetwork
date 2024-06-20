@@ -11,6 +11,7 @@ import Picker from "@emoji-mart/react";
 import { addPost } from "../../redux/features/Add-Post/addPostAPI";
 import { useDropzone } from "react-dropzone";
 import { IoMdClose } from "react-icons/io";
+import setLoadingPage from "../../utils/setLoadingPage";
 interface UploadedFile {
   file: File;
   preview: string;
@@ -76,6 +77,7 @@ const AddPost = () => {
   //
 
   const handlePost = async () => {
+    setLoadingPage({ value: 30 });
     setIsLoading(true);
     try {
       const formData = new FormData();
@@ -101,8 +103,8 @@ const AddPost = () => {
     (state: RootState) => state.addPost.isFetching
   );
   useEffect(() => {
-    console.log(dataAddPost);
     if (dataAddPost?.success === true) {
+      setLoadingPage({ value: 100 });
       setIsLoading(false);
       // toast.success("Thêm post thành công!");
       setContent("");

@@ -85,7 +85,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
-
+import loadingReducer from "./features/loading/loadingSlice"
 // Define the root state type
 const rootReducer = combineReducers({
   user: userReducer,
@@ -97,6 +97,7 @@ const rootReducer = combineReducers({
   addInfo: addInfoSlice,
   addCmt: addCmtSlice,
   addReels: addReelsSlice,
+  loading: loadingReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

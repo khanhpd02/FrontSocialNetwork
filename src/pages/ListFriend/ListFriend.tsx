@@ -5,6 +5,7 @@ import { tokenState } from "../../recoil/initState";
 import Skeleton from "react-loading-skeleton";
 import { useNavigate, useParams } from "react-router-dom";
 import { Empty } from "antd";
+import setLoadingPage from "../../utils/setLoadingPage";
 // import { Skeleton } from "react-loading-skeleton";
 
 interface Comment {
@@ -36,12 +37,13 @@ const ListFriend = () => {
 
   const loadData = async () => {
     // Gọi API để lấy dữ liệu
-
+    setLoadingPage({ value: 30 });
     await api
       .get<ResponseData>(`https://truongnetwwork.bsite.net/api/Friend/getAll`)
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
+          setLoadingPage({ value: 100 });
           setLoadCmt1(true);
           setLoad(true);
           setLoadSearch1(false);

@@ -16,6 +16,7 @@ import { Button, Dropdown, Menu } from "antd";
 import { addReelss } from "./../../redux/features/Add-Reels/addReelsAPI";
 import { Checkbox } from "antd";
 import type { CheckboxProps } from "antd";
+import setLoadingPage from "../../utils/setLoadingPage";
 interface UploadedFile {
   file: File;
   preview: string;
@@ -86,6 +87,7 @@ const AddReels = () => {
   //
 
   const handlePost = async () => {
+    setLoadingPage({ value: 30 });
     setIsLoading(true);
     if (uploadedFiles.length == 1) {
       try {
@@ -135,6 +137,7 @@ const AddReels = () => {
   useEffect(() => {
     console.log(dataAddReels);
     if (dataAddReels?.success === true) {
+      setLoadingPage({ value: 100 });
       setIsLoading(false);
 
       setContent("");

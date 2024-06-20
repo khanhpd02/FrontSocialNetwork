@@ -16,6 +16,7 @@ import { useRecoilValue } from "recoil";
 import { tokenState } from "../../recoil/initState";
 import moment from "moment";
 import { useAppDispatch } from "../../hook/hook";
+import setLoadingPage from "../../utils/setLoadingPage";
 function disabledDate(current: any) {
   // Disable all dates after today
   return current && current > moment().endOf("day");
@@ -116,6 +117,7 @@ const AddInfo = () => {
   const UserId = idToken.payload.id;
   //
   const handleLUpdate = async () => {
+    setLoadingPage({ value: 30 });
     setIsLoading(true);
     try {
       if (File) {
@@ -160,6 +162,7 @@ const AddInfo = () => {
   );
   useEffect(() => {
     if (dataAddInfo && dataAddInfo.data && dataAddInfo.data.success === true) {
+      setLoadingPage({ value: 100 });
       toast.success("Thêm thông tin thành công!");
       console.log(dataAddInfo);
       localStorage.setItem("hasInfor", "true");
@@ -187,7 +190,6 @@ const AddInfo = () => {
   const [nameCi, setNameCi] = useState("");
   const [nameDi, setNameDi] = useState("");
   const [nameWa, setNameWa] = useState("");
-  console.log(selectedDistrict1);
   const loadDataProvide = async () => {
     // Gọi API để lấy dữ liệu
     setAuthToken(token);

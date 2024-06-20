@@ -1,16 +1,15 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createRoom } from "../../recoil/initState";
+import { useRecoilState } from "recoil";
 const JoinCallGroup = () => {
   const [value, setValue] = useState("");
   const naviate = useNavigate();
+  const [, setCreateRoom] = useRecoilState(createRoom);
   const joinRoom = useCallback(() => {
     // Navigate to the room first
-    naviate(`/room/${value}`);
-
-    // Reload the page after a short delay (e.g., 100ms)
-    setTimeout(() => {
-      window.location.reload();
-    }, 100); // Adjust the delay as needed
+    setCreateRoom(true);
+    window.location.replace(`/room/${value}`);
   }, [naviate, value]);
 
   return (

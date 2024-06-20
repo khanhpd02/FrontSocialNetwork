@@ -1,4 +1,14 @@
 import { atom } from "recoil";
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
+
+export const createRoom = atom({
+  key: 'createRoom',
+  default: false,
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const avatarRC1 = atom({
   key: "avatarRC",
   default:  "",
@@ -111,4 +121,5 @@ export const ImagesRecoil = atom({
   key: "ImagesRecoil",
   default: [],
 })
+
 export default initState;
