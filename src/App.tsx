@@ -4,7 +4,6 @@ import "./App.css";
 import Login from "./pages/Login/Login";
 import { publicRoutes } from "./routes";
 import Logo2 from "../src/assets/LogoLoad.png";
-import LogoSecond from "../src/assets/TKCTech.png";
 import QR from "../src/assets/image-qr-code.png";
 import { Toaster } from "react-hot-toast";
 import React from "react";
