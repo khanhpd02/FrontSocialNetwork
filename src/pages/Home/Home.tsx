@@ -88,9 +88,7 @@ const Home = () => {
     dispatch(fetchFriend());
   }, [dispatch]);
   useEffect(() => {
-    console.log(currentUser1.success);
     if (currentUser1.success !== undefined) {
-      console.log(currentUser1.success);
       setLoadChat(false);
     }
   }, [currentUser1.success]);

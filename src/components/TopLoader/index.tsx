@@ -7,7 +7,6 @@ import { RootState } from "../../redux/store";
 const TopLoader: React.FC = () => {
   // const dispatch = useDispatch();
   const progress = useSelector((state: RootState) => state.loading.value);
-  console.log(222222);
   return (
     <LoadingBar
       waitingTime={500}

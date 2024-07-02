@@ -9,14 +9,15 @@ import { isChatR, tokenState } from "../../recoil/initState";
 import ChatScreen from "./ChatScreen";
 import { IoMdClose } from "react-icons/io";
 import BodyRightChatHome from "./BodyRightChatHome";
-
+import { useNavigate } from "react-router-dom";
 const RightChatHome = () => {
   const { data } = useChatContext();
-  console.log(data);
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [username, setUserName] = useState("");
   const [name2, setName2] = useState("");
   const [username2, setUserName2] = useState("");
+  const [usersID, setUserID] = useState("");
   const token = useRecoilValue(tokenState);
   useEffect(() => {
     const fetchData = async () => {
@@ -29,7 +30,8 @@ const RightChatHome = () => {
             params: { fullname: fullName },
           }
         );
-        console.log(responseInfo.data.data?.[0].userId);
+        console.log(responseInfo.data.data?.[0]?.userId);
+        setUserID(responseInfo.data.data?.[0]?.userId);
         setName(responseInfo.data.data?.[0]?.userId.slice(0, 10));
         setUserName(responseInfo.data.data?.[0]?.fullName);
       } catch (error) {
@@ -293,7 +295,12 @@ const RightChatHome = () => {
       ) : (
         <section className="flex flex-col flex-auto border-l  ">
           <div className="chat-header px-2 py-2 flex flex-row flex-none justify-between items-center border-b-[1px]">
-            <div className="flex justify-center items-center">
+            <div
+              className="flex justify-center items-center"
+              onClick={() => {
+                navigate(`/personal-user/${usersID}`);
+              }}
+            >
               <div className="w-8 h-8 mr-2 relative flex justify-center items-center">
                 <img
                   className=" rounded-full w-full h-full object-cover"

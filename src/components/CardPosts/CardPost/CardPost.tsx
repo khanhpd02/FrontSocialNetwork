@@ -10,6 +10,7 @@ import {
   ShareS,
   isUpdatePost,
   ImagesRecoil,
+  VideosRecoil,
 } from "../../../recoil/initState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -33,6 +34,7 @@ import {
   differenceInCalendarDays,
   differenceInMinutes,
 } from "date-fns";
+import { VideoSlider } from "../../common/VideoSlider/VideoSlider";
 
 interface Comment {
   childrenComment: [];
@@ -81,6 +83,7 @@ const CardPost = ({ data, cmtid }: Props) => {
   const [IdEdit, setIdEdit] = useState("");
   const [loadShare, setLoadShare] = useRecoilState(ShareS);
   const [ImagesRecoilR, setImagesRecoil] = useRecoilState(ImagesRecoil);
+  const [VideosRecoilR, setVideosRecoil] = useRecoilState(VideosRecoil);
   const [like, setLike] = useState(data.islike);
   const [dataCmt, setData] = useState<ResponseData>({
     data: [],
@@ -405,10 +408,14 @@ const CardPost = ({ data, cmtid }: Props) => {
     setImagesRecoil(data.images);
     setLoadShare("3");
   };
+  const handleVideo = () => {
+    setIdEdit(data.id);
+    setVideosRecoil(data.videos);
+    setLoadShare("4");
+  };
   useEffect(() => {
     scrollToWow(); // Scroll sau khi dữ liệu đã được tải
   }, [dataCmt]);
-  console.log(data);
   return (
     <div
       className="w-[500px] h-auto bg-white  mb-10 rounded-[10px]"
@@ -535,13 +542,27 @@ const CardPost = ({ data, cmtid }: Props) => {
                     </div>
                   </div>
                 )}
-
-                {videos?.map((_: any, item: number) => (
+                {videos.length === 1 ? (
                   <CustomVideo
-                    src={videos[item]?.link}
+                    src={videos[0]?.link}
                     classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
                   />
-                ))}
+                ) : (
+                  <div
+                    className="w-[50%] mx-[2px] object-cover relative"
+                    onClick={handleVideo}
+                  >
+                    <CustomVideo
+                      src={videos[0]?.link}
+                      classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                      <span className="text-white text-2xl font-bold">
+                        +{videos.length - 1}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : images.length === 1 ? (
               <div className="flex" onClick={handleImage}>
@@ -586,21 +607,52 @@ const CardPost = ({ data, cmtid }: Props) => {
               </div>
             ) : (
               <>
-                {videos?.map((_: any, item: number) => (
-                  <div className="">
-                    <CustomVideo
-                      src={videos[item]?.link}
-                      classsName="w-[100%] max-h-[400px] bg-black"
-                    />
+                {videos.length === 2 ? (
+                  <div className="flex ">
+                    {videos?.map((_: any, item: number) => (
+                      <div className="max-w-[50%] flex justify-center items-center bg-black">
+                        <CustomVideo
+                          src={videos[item]?.link}
+                          classsName="w-[100%]  bg-black"
+                        />
+                      </div>
+                    ))}
                   </div>
-                  // <video
-                  //   key={index}
-
-                  //   controls
-                  //   preload="auto"
-                  //   className="w-[100%]"
-                  // ></video>
-                ))}
+                ) : videos.length >= 3 ? (
+                  <div className="flex ">
+                    <div className="max-w-[50%] flex justify-center items-center bg-black">
+                      <CustomVideo
+                        src={videos[0]?.link}
+                        classsName="w-[100%]  bg-black"
+                      />
+                    </div>
+                    <div
+                      className="max-w-[50%] flex justify-center items-center bg-black relative"
+                      onClick={handleVideo}
+                    >
+                      <CustomVideo
+                        src={videos[1]?.link}
+                        classsName="w-[100%]  bg-black"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <span className="text-white text-2xl font-bold">
+                          +{videos.length - 2}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {videos?.map((_: any, item: number) => (
+                      <div className="">
+                        <CustomVideo
+                          src={videos[item]?.link}
+                          classsName="w-[100%] max-h-[400px] bg-black"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </>
             )}
           </>
@@ -887,6 +939,9 @@ const CardPost = ({ data, cmtid }: Props) => {
       {loadShare === "2" && IdEdit === data.id && <EditPost data={data} />}
       {loadShare === "3" && IdEdit === data.id && (
         <ImageSlider images={ImagesRecoilR} />
+      )}
+      {loadShare === "4" && IdEdit === data.id && (
+        <VideoSlider videos={VideosRecoilR} />
       )}
     </div>
   );

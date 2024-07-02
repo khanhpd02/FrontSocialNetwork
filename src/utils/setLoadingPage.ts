@@ -7,7 +7,6 @@ interface IState {
 }
 
 const setLoadingPage = ({ value }: IState) => {
-  console.log(1234567)
   store.dispatch(changePercentLoading(value))
 }
 

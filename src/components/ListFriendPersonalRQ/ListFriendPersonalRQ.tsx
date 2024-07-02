@@ -58,7 +58,7 @@ const ListFriendPersonalRQ = () => {
           {data.data.map((_, index: number) => (
             <Link
               to={`/personal-user/${data.data[index].userId}`}
-              className="w-[100%] h-auto rounded-[10px] flex justify-start items-center mb-2 bg-white py-2 hover:bg-slate-50"
+              className="w-[100%] h-auto rounded-[10px] flex justify-start items-center  bg-white py-1 hover:bg-slate-50"
             >
               <img src={data.data[index].image} alt="" className="tab-img" />
               <div>

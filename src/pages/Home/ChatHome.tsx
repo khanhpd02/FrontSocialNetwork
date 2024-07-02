@@ -26,7 +26,6 @@ import { FiSearch } from "react-icons/fi";
 const ChatHome = () => {
   const currentUser = useSelector((state: RootState) => state.info.info);
   const navigate = useNavigate();
-  console.log(currentUser);
 
   const [username, setUsername] = useState<string>("");
   const [user, setUser] = useState<DocumentData | null>(null);
@@ -165,7 +164,6 @@ const ChatHome = () => {
 
     currentUser.data.firebaseData.uid && getChats();
   }, [currentUser.data.firebaseData.uid]);
-  console.log(chats);
   const [isChat1, setIsChat1] = useRecoilState(isChatR);
   const handleSelect1 = (u: any) => {
     setIsChat1(false);

@@ -121,5 +121,8 @@ export const ImagesRecoil = atom({
   key: "ImagesRecoil",
   default: [],
 })
-
+export const VideosRecoil = atom({
+  key: "VideosRecoil",
+  default: [],
+})
 export default initState;

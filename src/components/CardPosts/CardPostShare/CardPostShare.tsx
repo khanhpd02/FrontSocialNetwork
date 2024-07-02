@@ -10,6 +10,7 @@ import {
   ShareS,
   isUpdatePost,
   SharePS,
+  VideosRecoil,
 } from "../../../recoil/initState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -73,6 +74,7 @@ const CardPostShare = ({ data }: Props) => {
   const [like, setLike] = useState(data.islike);
   const [countDataShare, setCountDataShare] = useState(data.countLikeShare);
   const [likeShar, setLikeShare] = useState(data.islikeShare);
+  const [, setVideosRecoil] = useRecoilState(VideosRecoil);
   const [dataCmt, setData] = useState<ResponseData>({
     data: [],
     success: false,
@@ -102,7 +104,6 @@ const CardPostShare = ({ data }: Props) => {
     );
 
     if (parsedInputTime.toDateString() === currentTime.toDateString()) {
-      console.log(totalHoursDifference);
       // Nếu ngày trùng
       if (totalHoursDifference < 1) {
         const minute = 60 + totalMinutesDifference;
@@ -500,12 +501,16 @@ const CardPostShare = ({ data }: Props) => {
       })
       .catch((err) => console.log(err));
   };
-  console.log(data);
   const [IdEdit, setIdEdit] = useState("");
   const [loadShareP, setLoadShareP] = useRecoilState(SharePS);
   const handleEdit = () => {
     setIdEdit(data.id);
     setLoadShareP("2");
+  };
+  const handleVideo = () => {
+    setIdEdit(data.id);
+    setVideosRecoil(data.videos);
+    setLoadShare("4");
   };
   return (
     <>
@@ -648,12 +653,27 @@ const CardPostShare = ({ data }: Props) => {
                           </div>
                         )}
 
-                        {videos?.map((_: any, item: number) => (
+                        {videos.length === 1 ? (
                           <CustomVideo
-                            src={videos[item]?.link}
+                            src={videos[0]?.link}
                             classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
                           />
-                        ))}
+                        ) : (
+                          <div
+                            className="w-[50%] mx-[2px] object-cover relative"
+                            onClick={handleVideo}
+                          >
+                            <CustomVideo
+                              src={videos[0]?.link}
+                              classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                              <span className="text-white text-2xl font-bold">
+                                +{videos.length - 1}
+                              </span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ) : images.length === 1 ? (
                       <div className="flex">
@@ -668,21 +688,52 @@ const CardPostShare = ({ data }: Props) => {
                       </div>
                     ) : (
                       <>
-                        {videos?.map((_: any, item: number) => (
-                          <div className="">
-                            <CustomVideo
-                              src={videos[item]?.link}
-                              classsName="w-[100%] max-h-[400px] bg-black"
-                            />
+                        {videos.length === 2 ? (
+                          <div className="flex ">
+                            {videos?.map((_: any, item: number) => (
+                              <div className="max-w-[50%] flex justify-center items-center bg-black">
+                                <CustomVideo
+                                  src={videos[item]?.link}
+                                  classsName="w-[100%]  bg-black"
+                                />
+                              </div>
+                            ))}
                           </div>
-                          // <video
-                          //   key={index}
-
-                          //   controls
-                          //   preload="auto"
-                          //   className="w-[100%]"
-                          // ></video>
-                        ))}
+                        ) : videos.length >= 3 ? (
+                          <div className="flex ">
+                            <div className="max-w-[50%] flex justify-center items-center bg-black">
+                              <CustomVideo
+                                src={videos[0]?.link}
+                                classsName="w-[100%]  bg-black"
+                              />
+                            </div>
+                            <div
+                              className="max-w-[50%] flex justify-center items-center bg-black relative"
+                              onClick={handleVideo}
+                            >
+                              <CustomVideo
+                                src={videos[1]?.link}
+                                classsName="w-[100%]  bg-black"
+                              />
+                              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                <span className="text-white text-2xl font-bold">
+                                  +{videos.length - 2}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            {videos?.map((_: any, item: number) => (
+                              <div className="">
+                                <CustomVideo
+                                  src={videos[item]?.link}
+                                  classsName="w-[100%] max-h-[400px] bg-black"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </>
                     )}
                   </>
@@ -1135,12 +1186,27 @@ const CardPostShare = ({ data }: Props) => {
                           </div>
                         )}
 
-                        {videos?.map((_: any, item: number) => (
+                        {videos.length === 1 ? (
                           <CustomVideo
-                            src={videos[item]?.link}
+                            src={videos[0]?.link}
                             classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
                           />
-                        ))}
+                        ) : (
+                          <div
+                            className="w-[50%] mx-[2px] object-cover relative"
+                            onClick={handleVideo}
+                          >
+                            <CustomVideo
+                              src={videos[0]?.link}
+                              classsName="w-[100%] max-h-[400px] bg-black min-h-[200px] h-full"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                              <span className="text-white text-2xl font-bold">
+                                +{videos.length - 1}
+                              </span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ) : images.length === 1 ? (
                       <div className="flex">
@@ -1155,14 +1221,52 @@ const CardPostShare = ({ data }: Props) => {
                       </div>
                     ) : (
                       <>
-                        {videos?.map((_: any, item: number) => (
-                          <div className="">
-                            <CustomVideo
-                              src={videos[item]?.link}
-                              classsName="w-[100%] max-h-[400px] bg-black"
-                            />
+                        {videos.length === 2 ? (
+                          <div className="flex ">
+                            {videos?.map((_: any, item: number) => (
+                              <div className="max-w-[50%] flex justify-center items-center bg-black">
+                                <CustomVideo
+                                  src={videos[item]?.link}
+                                  classsName="w-[100%]  bg-black"
+                                />
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        ) : videos.length >= 3 ? (
+                          <div className="flex ">
+                            <div className="max-w-[50%] flex justify-center items-center bg-black">
+                              <CustomVideo
+                                src={videos[0]?.link}
+                                classsName="w-[100%]  bg-black"
+                              />
+                            </div>
+                            <div
+                              className="max-w-[50%] flex justify-center items-center bg-black relative"
+                              onClick={handleVideo}
+                            >
+                              <CustomVideo
+                                src={videos[1]?.link}
+                                classsName="w-[100%]  bg-black"
+                              />
+                              <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                                <span className="text-white text-2xl font-bold">
+                                  +{videos.length - 2}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            {videos?.map((_: any, item: number) => (
+                              <div className="">
+                                <CustomVideo
+                                  src={videos[item]?.link}
+                                  classsName="w-[100%] max-h-[400px] bg-black"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </>
                     )}
                   </>

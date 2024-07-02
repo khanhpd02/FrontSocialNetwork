@@ -8,10 +8,12 @@ import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 import { ZIM } from "zego-zim-web";
 import { tokenState } from "../../recoil/initState";
 import ChatScreen from "./ChatScreen";
+import { useNavigate } from "react-router-dom";
 const RightChat = () => {
   const { data } = useChatContext();
-  console.log(data);
+  const navigate = useNavigate();
   const [name, setName] = useState("");
+  const [usersID, setUserID] = useState("");
   const [username, setUserName] = useState("");
   const [name2, setName2] = useState("");
   const [username2, setUserName2] = useState("");
@@ -27,7 +29,7 @@ const RightChat = () => {
             params: { fullname: fullName },
           }
         );
-        console.log(responseInfo.data.data?.[0].userId);
+        setUserID(responseInfo.data.data?.[0]?.userId);
         setName(responseInfo.data.data?.[0]?.userId.slice(0, 10));
         setUserName(responseInfo.data.data?.[0]?.fullName);
       } catch (error) {
@@ -44,7 +46,6 @@ const RightChat = () => {
         );
         setName2(responseInfo.data.data.userId.slice(0, 10));
         setUserName2(responseInfo.data.data.fullName);
-        console.log(name2);
       } catch (error) {
         console.error("Get post failed", error);
       }
@@ -165,7 +166,7 @@ const RightChat = () => {
     );
 
     zeroCloudInstance.current = ZegoUIKitPrebuilt.create(KitToken);
-    console.log(zeroCloudInstance.current);
+
     // add plugin
     if (zeroCloudInstance.current) {
       zeroCloudInstance.current.addPlugins({ ZIM });
@@ -180,15 +181,13 @@ const RightChat = () => {
       "_" +
       name2;
     const usercallee = removeSpaces(removeVietnameseDiacritics(username));
-    console.log("xu ly", callee, usercallee);
+
     if (!callee) {
       alert("userID cannot be empty!!");
       return;
     }
-    console.log(callee, usercallee);
     // send call invitation
     if (zeroCloudInstance.current) {
-      console.log(zeroCloudInstance.current, callType);
       zeroCloudInstance.current
         .sendCallInvitation({
           callees: [{ userID: callee, userName: usercallee }],
@@ -196,8 +195,6 @@ const RightChat = () => {
           timeout: 60,
         })
         .then((res) => {
-          console.log(callee, usercallee);
-          console.warn(res);
           if (res.errorInvitees.length) {
             alert("The user dose not exist or is offline.");
           }
@@ -218,7 +215,12 @@ const RightChat = () => {
       ) : (
         <section className="flex flex-col flex-auto border-l  ">
           <div className="chat-header px-6 py-4 flex flex-row flex-none justify-between items-center border-b">
-            <div className="flex justify-center items-center">
+            <div
+              className="flex justify-center items-center"
+              onClick={() => {
+                navigate(`/personal-user/${usersID}`);
+              }}
+            >
               <div className="w-12 h-12 mr-4 relative flex justify-center items-center">
                 <img
                   className=" rounded-full w-full h-full object-cover"

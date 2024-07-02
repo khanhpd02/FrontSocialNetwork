@@ -118,20 +118,22 @@ const Personal = () => {
                       src={info.data.background || Logo2}
                       alt="profilePic"
                     ></img>
-                    <div className="absolute bottom-10 left-6">
+                    <div className="absolute bottom-10 left-6 ">
                       <img
-                        className="h-28 w-28 rounded-full"
+                        className="h-28 w-28 rounded-full "
                         src={info.data.image || Logo2}
                         alt="avatart"
                       />
-                      <p className="py-2 font-roboto font-medium text-sm text-white no-underline tracking-normal leading-none">
-                        {info.data.fullName}
-                      </p>
-                      <p className="py-2 font-roboto font-medium text-sm text-white no-underline tracking-normal leading-none">
-                        @{info.data.nickname}
-                      </p>
+                      <div className="bg-white p-2 rounded-[12px] mt-2">
+                        <p className="py-2 font-roboto text-sm font-semibold text-black no-underline tracking-normal leading-none">
+                          {info.data.fullName}
+                        </p>
+                        <p className="py-2 font-roboto font-medium text-sm text-black no-underline tracking-normal leading-none">
+                          @{info.data.nickname}
+                        </p>
+                      </div>
                     </div>
-                    <div className="absolute top-10 right-6">
+                    <div className="absolute top-10 right-6 bg-white p-1 rounded-lg">
                       <img
                         src={ImgEdit}
                         alt=""
@@ -139,9 +141,9 @@ const Personal = () => {
                         onClick={() => setModalOpened(false)}
                       />
                     </div>
-                    <div className="flex flex-col absolute right-6 bottom-10">
+                    <div className="flex flex-col absolute right-6 bottom-10 bg-white p-2 rounded-[12px]">
                       <div className="flex items-center">
-                        <div className="h-8 w-8">
+                        <div className="h-[24px] w-[24px]">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -154,12 +156,12 @@ const Personal = () => {
                           </svg>
                         </div>
 
-                        <span className="ml-2 py-2 font-roboto font-medium text-sm text-white no-underline tracking-normal leading-none">
+                        <span className="ml-2 py-2 font-roboto font-medium text-sm text-black no-underline tracking-normal leading-none">
                           From {info.data.provinces}
                         </span>
                       </div>
                       <div className="flex items-center">
-                        <div className="h-8 w-8">
+                        <div className="h-[24px] w-[24px]">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             data-name="Layer 1"
@@ -172,7 +174,7 @@ const Personal = () => {
                             ></path>
                           </svg>
                         </div>
-                        <span className="ml-2 py-2 font-roboto font-medium text-sm text-white no-underline tracking-normal leading-none">
+                        <span className="ml-2 py-2 font-roboto font-medium text-sm text-black no-underline tracking-normal leading-none">
                           Lives in {info.data.workPlace}
                         </span>
                       </div>

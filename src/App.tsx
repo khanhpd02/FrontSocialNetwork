@@ -76,13 +76,16 @@ function App() {
               /> */}
 
               <div
-                className="loaderCR"
                 style={{
                   position: "absolute",
 
                   bottom: "30px",
                 }}
-              ></div>
+                className="flex flex-col justify-center items-center"
+              >
+                <p className="text-gray-400">from</p>
+                <p className="text-[#4da9f0] font-semibold">KTC NETWORK</p>
+              </div>
             </div>
           ) : (
             <div className="main_wrapper">
@@ -117,7 +120,7 @@ function App() {
                         <div className="screen">
                           <span className="notfound_text">
                             {" "}
-                            Creating a room
+                            Joining the room
                           </span>
                         </div>
                       </div>

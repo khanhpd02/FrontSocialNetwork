@@ -144,7 +144,7 @@ const ListFriendPersonal = () => {
               className="cursor-pointer"
               onClick={() => navigate("/list-friend")}
             >
-              <p>View all friends</p>
+              <p className="text-[12px] hover:underline">View all friends</p>
             </div>
           </div>
         </div>
