@@ -434,7 +434,7 @@ const PersonalFriend = () => {
                       </div>
                       <div className="flex items-center">
                         <span className="text-base font-semibold text-gray-700 mr-2">
-                          <>
+                          <span>
                             {data.data.statusFriend === "Thêm bạn bè" ? (
                               <>
                                 {loadSearch1 == false ? (
@@ -496,7 +496,7 @@ const PersonalFriend = () => {
                               </div>
                             ) : (
                               <>
-                                <label className="popup ml-6 bg-[#456fe6] text-white px-4 py-2 rounded-[8px] min-w-[100px]">
+                                <label className="popup mb-0 ml-6 bg-[#456fe6] text-white px-4 py-3 rounded-[8px] min-w-[100px]">
                                   <input type="checkbox" />
                                   <div className="burger">
                                     <>
@@ -534,7 +534,7 @@ const PersonalFriend = () => {
                                           </svg>
                                           <span>
                                             {" "}
-                                            <>
+                                            <span>
                                               {data.data.statusFriend ==
                                               "Bạn thường" ? (
                                                 <div
@@ -557,7 +557,7 @@ const PersonalFriend = () => {
                                                   Bạn bè
                                                 </div>
                                               )}
-                                            </>
+                                            </span>
                                           </span>
                                         </button>
                                       </li>
@@ -597,7 +597,7 @@ const PersonalFriend = () => {
                                 </label>
                               </>
                             )}
-                          </>
+                          </span>
                         </span>
                       </div>
                     </div>
@@ -620,9 +620,9 @@ const PersonalFriend = () => {
                       {item.images.length > 0 ? (
                         <>
                           {item.images.length !== 0 && (
-                            <div className="cursor-pointer h-full">
+                            <div className="cursor-pointer h-full rounded-md">
                               <img
-                                className="h-full object-cover"
+                                className="h-full object-cover rounded-md"
                                 style={{ width: "100%" }}
                                 src={
                                   item.images && item.images.length > 0
@@ -637,7 +637,7 @@ const PersonalFriend = () => {
                           )}
                         </>
                       ) : (
-                        <div className="cursor-pointer h-full">
+                        <div className="cursor-pointer h-full rounded-md">
                           <video
                             src={
                               item.videos && item.videos.length > 0

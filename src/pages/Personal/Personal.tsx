@@ -248,9 +248,9 @@ const Personal = () => {
                       {item.images.length > 0 ? (
                         <>
                           {item.images.length !== 0 && (
-                            <div className="cursor-pointer h-full">
+                            <div className="cursor-pointer h-full rounded-md">
                               <img
-                                className="h-full object-cover"
+                                className="h-full object-cover rounded-md"
                                 style={{ width: "100%" }}
                                 src={
                                   item.images && item.images.length > 0
@@ -272,7 +272,7 @@ const Personal = () => {
                                 ? item.videos[0].link
                                 : ""
                             }
-                            className="h-full object-cover"
+                            className="h-full object-cover rounded-md"
                             style={{ width: "100%" }}
                             onClick={() => {
                               navigate(`/post/${item.id}`);
