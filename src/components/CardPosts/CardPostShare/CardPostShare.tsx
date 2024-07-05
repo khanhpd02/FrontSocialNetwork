@@ -11,6 +11,7 @@ import {
   isUpdatePost,
   SharePS,
   VideosRecoil,
+  ImagesRecoil,
 } from "../../../recoil/initState";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -33,6 +34,8 @@ import {
   differenceInCalendarDays,
   differenceInMinutes,
 } from "date-fns";
+import { ImageSlider } from "../../common/ImgSlider/ImageSlider";
+import { VideoSlider } from "../../common/VideoSlider/VideoSlider";
 interface Comment {
   childrenComment: any;
   id: string;
@@ -74,7 +77,7 @@ const CardPostShare = ({ data }: Props) => {
   const [like, setLike] = useState(data.islike);
   const [countDataShare, setCountDataShare] = useState(data.countLikeShare);
   const [likeShar, setLikeShare] = useState(data.islikeShare);
-  const [, setVideosRecoil] = useRecoilState(VideosRecoil);
+
   const [dataCmt, setData] = useState<ResponseData>({
     data: [],
     success: false,
@@ -90,6 +93,8 @@ const CardPostShare = ({ data }: Props) => {
   const [inputTime] = useState(data.createDate);
   const [result, setResult] = useState("");
   const [resultShare, setResultShare] = useState("");
+  const [ImagesRecoilR, setImagesRecoil] = useRecoilState(ImagesRecoil);
+  const [VideosRecoilR, setVideosRecoil] = useRecoilState(VideosRecoil);
   const calculateDifference = () => {
     const parsedInputTime = parseISO(inputTime);
     const currentTime = new Date();
@@ -506,6 +511,11 @@ const CardPostShare = ({ data }: Props) => {
   const handleEdit = () => {
     setIdEdit(data.id);
     setLoadShareP("2");
+  };
+  const handleImage = () => {
+    setIdEdit(data.id);
+    setImagesRecoil(data.images);
+    setLoadShare("3");
   };
   const handleVideo = () => {
     setIdEdit(data.id);
@@ -1033,12 +1043,12 @@ const CardPostShare = ({ data }: Props) => {
           </div>
         </div>
         <div
-          className="w-full"
+          className="w-[400px] h-[400px] z-[999999]"
           style={{
             display: toggleEmj ? "none" : "block",
-            position: "fixed",
-            right: 1000,
-            top: 0,
+            position: "absolute",
+            right: -250,
+            top: -160,
           }}
         >
           <div className="emoji">
@@ -1130,7 +1140,7 @@ const CardPostShare = ({ data }: Props) => {
                 <div>
                   <>
                     {images.length === 2 && videos.length == 0 ? (
-                      <div className="flex">
+                      <div className="flex" onClick={handleImage}>
                         {images?.map((_: any, item: number) => (
                           <img
                             key={item}
@@ -1142,7 +1152,7 @@ const CardPostShare = ({ data }: Props) => {
                       </div>
                     ) : images.length === 3 ? (
                       <div className="flex">
-                        <div className="flex w-[100%]">
+                        <div className="flex w-[100%]" onClick={handleImage}>
                           <LazyLoadImg
                             index={0}
                             images={images[0]?.linkImage}
@@ -1171,9 +1181,13 @@ const CardPostShare = ({ data }: Props) => {
                             src={images[0]?.linkImage}
                             alt="img"
                             className="w-[50%] mx-[2px] object-cover h-auto"
+                            onClick={handleImage}
                           />
                         ) : (
-                          <div className="w-[50%] mx-[2px] object-cover relative">
+                          <div
+                            className="w-[50%] mx-[2px] object-cover relative"
+                            onClick={handleImage}
+                          >
                             <img
                               src={images[0]?.linkImage}
                               className="w-[100%]  h-full object-cover p-[1px] border-solid border-white"
@@ -1209,7 +1223,7 @@ const CardPostShare = ({ data }: Props) => {
                         )}
                       </div>
                     ) : images.length === 1 ? (
-                      <div className="flex">
+                      <div className="flex" onClick={handleImage}>
                         {images?.map((index: number, item: number) => (
                           <img
                             key={index}
@@ -1222,7 +1236,7 @@ const CardPostShare = ({ data }: Props) => {
                     ) : (
                       <>
                         {videos.length === 2 ? (
-                          <div className="flex ">
+                          <div className="flex " onClick={handleImage}>
                             {videos?.map((_: any, item: number) => (
                               <div className="max-w-[50%] flex justify-center items-center bg-black">
                                 <CustomVideo
@@ -1562,6 +1576,12 @@ const CardPostShare = ({ data }: Props) => {
       )}
       {loadShareP === "2" && IdEdit === data.id && (
         <EditPostShare data={data} />
+      )}
+      {loadShare === "3" && IdEdit === data.id && (
+        <ImageSlider images={ImagesRecoilR} />
+      )}
+      {loadShare === "4" && IdEdit === data.id && (
+        <VideoSlider videos={VideosRecoilR} />
       )}
     </>
   );

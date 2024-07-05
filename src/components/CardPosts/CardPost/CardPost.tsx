@@ -921,12 +921,12 @@ const CardPost = ({ data, cmtid }: Props) => {
         </div>
       </div>
       <div
-        className="w-full z-10"
+        className="w-[400px] h-[400px] z-[999]"
         style={{
           display: toggleEmj ? "none" : "block",
-          position: "fixed",
-          right: 300,
-          top: 0,
+          position: "absolute",
+          right: -250,
+          top: -160,
         }}
       >
         <div className="emoji">
