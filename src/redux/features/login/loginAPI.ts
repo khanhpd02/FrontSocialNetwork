@@ -14,7 +14,14 @@ import toast from "react-hot-toast";
   try {
     console.log("Co vào", data)
     const res = await publicAxios.post(API.LOGIN, data);
-    toast.success("Đăng nhập thành công!");
+    console.log(res?.data?.data?.data?.role?.[0])
+    if(res?.data?.data?.data?.role?.[0] === "Admin")
+    {
+      toast.error("Đăng nhập thất bại!");
+    }
+    else {
+      toast.success("Đăng nhập thành công!");
+    }
     dispatch(loginSuccess(res.data));
   } catch (err:any) {
     console.error(err.response.data.message);

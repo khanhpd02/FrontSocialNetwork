@@ -928,6 +928,7 @@ const CardPost = ({ data, cmtid }: Props) => {
           right: -250,
           top: -160,
         }}
+        onBlur={() => setToggleEmj(true)}
       >
         <div className="emoji">
           <Picker onEmojiSelect={emo == true ? addEmoji : addEmojiChild} />

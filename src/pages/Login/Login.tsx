@@ -13,6 +13,7 @@ import API from "../../services/API";
 import { login } from "../../redux/features/login/loginAPI";
 import { fetchInfo } from "../../redux/features/info/infoSlice";
 import { useAppDispatch } from "../../hook/hook";
+
 interface YourExistingDataType {
   data: any;
   success: any;
@@ -94,18 +95,20 @@ const Login = () => {
   ) as DataType;
   const isFetching = useSelector((state: RootState) => state.user.isFetching);
   useEffect(() => {
-    console.log(currentUser);
     if (currentUser?.data.success === true) {
-      setToken(currentUser?.data?.data?.jwtToken);
-      localStorage.setItem("token", currentUser?.data?.data?.jwtToken);
-      localStorage.setItem("hasInfor", currentUser?.data?.data?.hasInfor);
-
-      // Ẩn toast
-      if (currentUser?.data?.data?.hasInfor == false) {
-        navigate("/add-info");
+      if (currentUser?.data?.data?.role?.[0] === "Admin") {
+        setIsLoading(false);
       } else {
-        dispatch(fetchInfo());
-        navigate("/");
+        setToken(currentUser?.data?.data?.jwtToken);
+        localStorage.setItem("token", currentUser?.data?.data?.jwtToken);
+        localStorage.setItem("hasInfor", currentUser?.data?.data?.hasInfor);
+        // Ẩn toast
+        if (currentUser?.data?.data?.hasInfor == false) {
+          navigate("/add-info");
+        } else {
+          dispatch(fetchInfo());
+          navigate("/");
+        }
       }
     }
     if (error == true && isFetching == false) {
