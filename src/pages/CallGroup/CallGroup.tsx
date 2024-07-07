@@ -29,8 +29,8 @@ const CallGroup = () => {
   setCreateRoom(false);
   const myMeeting = async (element: any) => {
     // generate Kit Token
-    const appID = 67139489;
-    const serverSecret = "44e3c3e847572cc21bfe9f5f9f3410a5";
+    const appID = 2143691367;
+    const serverSecret = "9864561fa146539fe74aebc33693f11e";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
