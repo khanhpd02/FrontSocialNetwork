@@ -13,7 +13,9 @@ const Message = ({ message }: Props) => {
   const ref = useRef<HTMLDivElement>(null); // Explicitly define the type of the referenced element
 
   useEffect(() => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => {
+      ref.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   }, [message]);
 
   return (
@@ -42,7 +44,10 @@ const Message = ({ message }: Props) => {
               <>
                 {message.senderId === currentUser.data.firebaseData.uid ? (
                   <div className="flex items-center group flex-row-reverse">
-                    <p className="px-6 py-3 rounded-t-full rounded-l-full bg-[#456fe6] max-w-xs lg:max-w-md text-gray-200">
+                    <p
+                      className="px-6 py-3 rounded-t-full rounded-l-full bg-[#456fe6] max-w-xs lg:max-w-md text-gray-200"
+                      ref={ref}
+                    >
                       {message.text}
                     </p>
                     <button type="button" className="option-message">
@@ -76,7 +81,10 @@ const Message = ({ message }: Props) => {
                   </div>
                 ) : (
                   <div className="flex items-center group">
-                    <p className="px-6 py-3 rounded-t-full rounded-r-full bg-[#456fe6] max-w-[100px] h-auto lg:max-w-md text-gray-200">
+                    <p
+                      className="px-6 py-3 rounded-t-full rounded-r-full bg-[#456fe6] max-w-[100px] h-auto lg:max-w-md text-gray-200"
+                      ref={ref}
+                    >
                       {message.text}
                     </p>
                     <button type="button" className="option-message">
@@ -121,6 +129,7 @@ C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.
                   message.senderId === currentUser.data.firebaseData.uid &&
                   "flex items-center group flex-row-reverse"
                 }`}
+                ref={ref}
               >
                 <a
                   className="block w-64 h-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md"
