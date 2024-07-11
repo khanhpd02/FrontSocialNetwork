@@ -19,6 +19,7 @@ const RightChatHome = () => {
   const [username2, setUserName2] = useState("");
   const [usersID, setUserID] = useState("");
   const token = useRecoilValue(tokenState);
+
   useEffect(() => {
     const fetchData = async () => {
       setAuthToken(token);
@@ -67,81 +68,9 @@ const RightChatHome = () => {
       init();
     }
   }, [name, name2]);
-  ///
-  // const removeVietnameseDiacritics = (str: string) => {
-  //   const diacriticsMap = {
-  //     á: "a",
-  //     à: "a",
-  //     ả: "a",
-  //     ã: "a",
-  //     ạ: "a",
-  //     ă: "a",
-  //     ắ: "a",
-  //     ằ: "a",
-  //     ẳ: "a",
-  //     ẵ: "a",
-  //     ặ: "a",
-  //     â: "a",
-  //     ấ: "a",
-  //     ầ: "a",
-  //     ẩ: "a",
-  //     ẫ: "a",
-  //     ậ: "a",
-  //     đ: "d",
-  //     é: "e",
-  //     è: "e",
-  //     ẻ: "e",
-  //     ẽ: "e",
-  //     ẹ: "e",
-  //     ê: "e",
-  //     ế: "e",
-  //     ề: "e",
-  //     ể: "e",
-  //     ễ: "e",
-  //     ệ: "e",
-  //     í: "i",
-  //     ì: "i",
-  //     ỉ: "i",
-  //     ĩ: "i",
-  //     ị: "i",
-  //     ó: "o",
-  //     ò: "o",
-  //     ỏ: "o",
-  //     õ: "o",
-  //     ọ: "o",
-  //     ô: "o",
-  //     ố: "o",
-  //     ồ: "o",
-  //     ổ: "o",
-  //     ỗ: "o",
-  //     ộ: "o",
-  //     ơ: "o",
-  //     ớ: "o",
-  //     ờ: "o",
-  //     ở: "o",
-  //     ỡ: "o",
-  //     ợ: "o",
-  //     ú: "u",
-  //     ù: "u",
-  //     ủ: "u",
-  //     ũ: "u",
-  //     ụ: "u",
-  //     ư: "u",
-  //     ứ: "u",
-  //     ừ: "u",
-  //     ử: "u",
-  //     ữ: "u",
-  //     ự: "u",
-  //     ý: "y",
-  //     ỳ: "y",
-  //     ỷ: "y",
-  //     ỹ: "y",
-  //     ỵ: "y",
-  //   };
 
-  //   return str.replace(/[^A-Za-z0-9]/g, (char) => diacriticsMap[char] || char);
-  // };
   const removeVietnameseDiacritics = (str: string): string => {
+    console.log(str);
     const diacriticsMap: { [key: string]: string } = {
       á: "a",
       à: "a",
@@ -223,6 +152,7 @@ const RightChatHome = () => {
   };
   // const [calleeId, setCalleeId] = useState(name);
   const zeroCloudInstance = useRef<ZegoUIKitPrebuilt | null>(null);
+  console.log(username2);
   async function init() {
     const userName = removeSpaces(removeVietnameseDiacritics(username2));
     const userId =
@@ -257,13 +187,14 @@ const RightChatHome = () => {
       "_" +
       name2;
     const usercallee = removeSpaces(removeVietnameseDiacritics(username));
-    console.log("xu ly", callee, usercallee);
+
     if (!callee) {
       alert("userID cannot be empty!!");
       return;
     }
     console.log(callee, usercallee);
     // send call invitation
+    console.log(zeroCloudInstance.current);
     if (zeroCloudInstance.current) {
       console.log(zeroCloudInstance.current, callType);
       zeroCloudInstance.current

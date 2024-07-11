@@ -20,7 +20,6 @@ const AutoPlayAudio: React.FC<AutoPlayAudioProps> = ({
       }
     }
   };
-  console.log(audioSrc);
   return (
     <div>
       <h2>{songName}</h2>

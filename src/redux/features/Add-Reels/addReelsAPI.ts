@@ -13,10 +13,8 @@ import toast from "react-hot-toast";
   const token =localStorage.getItem("token");
   setAuthToken(token);
   dispatch(addReelsStart());
-  console.log(formData)
   try {
     if(type === "video/mp4") {
-      console.log(2)
       const res = await api.post(API.POST_REELS_VIDEO, formData,   {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -26,7 +24,6 @@ import toast from "react-hot-toast";
       dispatch(addReelsSuccess(res.data));
     }
     else {
-      console.log(1)
       const res = await api.post(API.POST_REELS_IMAGE, formData,   {
         headers: {
           "Content-Type": "multipart/form-data",

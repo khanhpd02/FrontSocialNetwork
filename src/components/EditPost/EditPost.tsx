@@ -55,7 +55,6 @@ const EditPost = ({ data }: Props) => {
     // Thêm id vào mảng hiddenIds
     setHiddenIdsV([...hiddenIdsV, id]);
   };
-  console.log(data, stringArray);
   const [, setLoadShare] = useRecoilState(ShareS);
   const [toggleEmj, setToggleEmj] = useState(true);
   const [load, setLoad] = useState(true);
@@ -128,17 +127,13 @@ const EditPost = ({ data }: Props) => {
       formData.append("LevelView", selectedItem?.key);
       formData.append("postId", data.id);
 
-      console.log(uploadedFiles);
-      console.log(stringArray[0]);
       if (stringArray) {
         stringArray.map((item, index) => {
-          console.log(`ListImageDeleteId[${index}]`, item);
           formData.append(`ListImageDeleteId[${index}]`, item);
         });
       }
       if (stringArray) {
         stringArray.map((item, index) => {
-          console.log(`ListImageDeleteId[${index}]`, item);
           formData.append(`ListVideoDeleteId[${index}]`, item);
         });
       }
@@ -147,7 +142,6 @@ const EditPost = ({ data }: Props) => {
           formData.append("File", uploadedFiles[index]?.file);
         });
       }
-      console.log(formData);
       await api
         .put(`https://truongnetwwork.bsite.net/api/post`, formData, {
           headers: {

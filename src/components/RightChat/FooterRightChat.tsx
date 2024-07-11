@@ -75,12 +75,6 @@ const FooterRightChat = () => {
         }
       );
     } else {
-      console.log(
-        currentUser.data.firebaseData.uid,
-        uuid(),
-        text,
-        data.user.uid
-      );
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
@@ -90,14 +84,12 @@ const FooterRightChat = () => {
         }),
       });
     }
-    console.log(data.chatId);
     await updateDoc(doc(db, "userChats", currentUser.data.firebaseData.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
       },
       [data.chatId + ".date"]: serverTimestamp(),
     });
-    console.log(data.user);
 
     await updateDoc(doc(db, "userChats", data.user.uid), {
       [data.chatId + ".lastMessage"]: {

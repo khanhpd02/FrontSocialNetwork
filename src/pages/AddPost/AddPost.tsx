@@ -83,7 +83,6 @@ const AddPost = () => {
       const formData = new FormData();
       formData.append("Content", Content);
       formData.append("LevelVieW", isChecked);
-      console.log(uploadedFiles);
       if (uploadedFiles) {
         uploadedFiles.map((_, index) => {
           formData.append("File", uploadedFiles[index]?.file);

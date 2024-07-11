@@ -25,7 +25,6 @@ import { useRecoilState } from "recoil";
 const Chat = () => {
   const currentUser = useSelector((state: RootState) => state.info.info);
   const navige = useNavigate();
-  console.log(currentUser);
   const [username, setUsername] = useState<string>("");
   const [user, setUser] = useState<DocumentData | null>(null);
   const [err, setErr] = useState<boolean>(false);
@@ -53,7 +52,6 @@ const Chat = () => {
   };
   const handleSelect = async () => {
     if (!user) {
-      console.error("User is null.");
       return;
     }
 
@@ -99,7 +97,7 @@ const Chat = () => {
   const [chats, setChats] = useState<any>([]);
 
   const { dispatch } = useChatContext();
-  console.log(chats);
+
   useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(
@@ -116,9 +114,8 @@ const Chat = () => {
 
     currentUser.data.firebaseData.uid && getChats();
   }, [currentUser.data.firebaseData.uid]);
-  console.log(chats);
+
   const handleSelect1 = (u: any) => {
-    console.log(u);
     dispatch({ type: "CHANGE_USER", payload: u });
   };
   const TransTime = (time: any) => {

@@ -30,7 +30,6 @@ export function ImageSlider({ images }: ImageSliderProps) {
       return index - 1;
     });
   }
-  console.log(images, imageIndex);
   const hanldeWrap = (index: number) => {
     setImageIndex(index);
   };

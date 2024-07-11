@@ -125,4 +125,8 @@ export const VideosRecoil = atom({
   key: "VideosRecoil",
   default: [],
 })
+export const CallR = atom({
+  key: "CallR",
+  default: {},
+})
 export default initState;

@@ -35,7 +35,6 @@ const CardReels = ({ data }: Props) => {
 
   // Hàm này được gọi khi chuyển tab
 
-  console.log(scrollPosition);
   return (
     <div className="w-[70%] py-6  ">
       <>

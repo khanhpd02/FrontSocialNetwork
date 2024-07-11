@@ -12,9 +12,8 @@ import toast from "react-hot-toast";
  export const login = async (dispatch: any, data: any): Promise<void> => {
   dispatch(loginStart());
   try {
-    console.log("Co vào", data)
+
     const res = await publicAxios.post(API.LOGIN, data);
-    console.log(res?.data?.data?.data?.role?.[0])
     if(res?.data?.data?.data?.role?.[0] === "Admin")
     {
       toast.error("Đăng nhập thất bại!");
@@ -24,7 +23,6 @@ import toast from "react-hot-toast";
     }
     dispatch(loginSuccess(res.data));
   } catch (err:any) {
-    console.error(err.response.data.message);
     toast.error(err.response.data.message)
    
      dispatch(loginFailure());

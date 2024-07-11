@@ -64,9 +64,7 @@ const VerifyCodeOTP: FC<Props> = () => {
   };
   const handlePin = async () => {
     const pin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
-    console.log(pin, emailFP); // Hiển thị kiểu dữ liệu "string"
     const email = emailFP;
-    console.log(email);
     try {
       const response = await axios.post(
         "https://truongnetwwork.bsite.net/api/auth/VerifyPinForgotPassword",
@@ -75,7 +73,6 @@ const VerifyCodeOTP: FC<Props> = () => {
           pin,
         }
       );
-      console.log(response);
       if (response.data.data.message == "Xác thực thành công") {
         toast.success("Xác thực thành công!");
         setModeChangeRE(false);

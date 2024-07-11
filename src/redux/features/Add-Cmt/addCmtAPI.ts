@@ -12,7 +12,6 @@ import { api, setAuthToken } from "../../../utils/setAuthToken";
   const token =localStorage.getItem("token");
   setAuthToken(token);
   dispatch(addCmtStart());
-  console.log(data)
   try {
     const res = await api.post(API.POST_COMMENT, data,    {
       headers: {

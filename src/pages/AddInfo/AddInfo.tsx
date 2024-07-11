@@ -78,8 +78,8 @@ const AddInfo = () => {
   // };
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     if (typeof dateString === "string") {
+      console.log(date);
       setDateOfBirth(dateString);
-      console.log(date, dateString);
     }
   };
 
@@ -144,7 +144,6 @@ const AddInfo = () => {
             Career: Career,
             Nickname: NickName,
           };
-          console.log(data);
           addInfo(dispatch, data);
         }
       }
@@ -164,7 +163,7 @@ const AddInfo = () => {
     if (dataAddInfo && dataAddInfo.data && dataAddInfo.data.success === true) {
       setLoadingPage({ value: 100 });
       toast.success("Thêm thông tin thành công!");
-      console.log(dataAddInfo);
+
       localStorage.setItem("hasInfor", "true");
       dispatch(fetchInfo());
       setTimeout(() => {
@@ -198,7 +197,6 @@ const AddInfo = () => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data);
           setDataProvide(response.data);
         }
       })
@@ -216,7 +214,6 @@ const AddInfo = () => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data);
           setDataDistrict(response.data);
         }
       })
@@ -238,7 +235,6 @@ const AddInfo = () => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data);
           setDataWard(response.data);
         }
       })
@@ -247,14 +243,12 @@ const AddInfo = () => {
       });
   };
   useEffect(() => {
-    console.log(123);
     loadDataWard();
   }, [selectedDistrict1]);
   useEffect(() => {
     loadDataProvide();
     // loadDataUserCmt();
   }, []);
-  console.log(dataProvide);
   return (
     <div
       className=" w-[auto] bg-[#e2e8f0] h-[100vh] flex justify-center items-center"

@@ -64,7 +64,6 @@ const VerifyCode: FC<Props> = () => {
     const pin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
     // Hiển thị kiểu dữ liệu "string"
     const email = emailRegisRecoil;
-    console.log(pin, emailRegisRecoil);
     try {
       const response = await axios.post(API.VERIFY_PIN, {
         email,

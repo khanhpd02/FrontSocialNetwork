@@ -6,7 +6,6 @@ const getPost = async (numberOfPosts:string) => {
   const response = await api.get(API.GET_ALL_POST, {
     params: { numberOfPosts: numberOfPosts }, // Use params to send data in the query string
   });
-  console.log(response)
   return response.data;
 };
 

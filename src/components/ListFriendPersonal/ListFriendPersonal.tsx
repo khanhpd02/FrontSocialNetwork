@@ -74,7 +74,6 @@ const ListFriendPersonal = () => {
   const handleAcceptF = async (idfriend: any) => {
     try {
       const id = idfriend;
-      console.log(idfriend);
       const response = await api.post(
         `https://truongnetwwork.bsite.net/api/Friend/accept/${id}`
       );

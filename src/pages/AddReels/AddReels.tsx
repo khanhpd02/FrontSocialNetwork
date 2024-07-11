@@ -127,7 +127,6 @@ const AddReels = () => {
         setAuthToken(token);
         const res = await api.get(API.GET_AUDIO);
         setAudio(res.data.data);
-        console.log(res);
       } catch (e) {
         console.log(e);
       }
@@ -135,7 +134,6 @@ const AddReels = () => {
     fetchAudio();
   }, []);
   useEffect(() => {
-    console.log(dataAddReels);
     if (dataAddReels?.success === true) {
       setLoadingPage({ value: 100 });
       setIsLoading(false);
@@ -155,7 +153,6 @@ const AddReels = () => {
   };
 
   const handleMenuClick = (item: any) => {
-    console.log(item);
     setSelectedItem(item.name);
     setAudioSrc(item.link);
     setAudioID(item.id);
@@ -181,9 +178,7 @@ const AddReels = () => {
   };
   const onChange: CheckboxProps["onChange"] = (e) => {
     setDisableVoice(e.target.checked);
-    console.log(`checked = ${e.target.checked}`);
   };
-  console.log(uploadedFiles[0]?.file.type);
   return (
     <>
       <div className="flex flex-row relative left-[15rem] top-[50px]">

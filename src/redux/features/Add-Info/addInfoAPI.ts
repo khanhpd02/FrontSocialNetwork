@@ -12,7 +12,6 @@ import { api, setAuthToken } from "../../../utils/setAuthToken";
  export const addInfo = async (dispatch: any, data: any): Promise<void> => {
   const token =localStorage.getItem("token");
   setAuthToken(token);
-  console.log(data)
   dispatch(addInfoStart());
   try {
     const res = await api.post(API.ADD_INFO, data,   {
@@ -21,7 +20,6 @@ import { api, setAuthToken } from "../../../utils/setAuthToken";
       },
     });
     dispatch(addInfoSuccess(res.data));
-    console.log(res)
   } catch (err) {
     console.error(err);
     dispatch(addInfoFailure());

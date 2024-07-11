@@ -31,7 +31,6 @@ export function VideoSlider({ videos }: VideosliderProps) {
       return index - 1;
     });
   }
-  console.log(videos, imageIndex);
   const hanldeWrap = (index: number) => {
     setImageIndex(index);
   };

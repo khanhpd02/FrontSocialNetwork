@@ -8,7 +8,6 @@ const BodyRightChat = () => {
   const { data } = useChatContext();
 
   useEffect(() => {
-    console.log(data.chatId);
     const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
     });

@@ -6,7 +6,7 @@ interface Props {
 function CustomVideo({ src, classsName }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPaused, setIsPaused] = useState(true);
-  console.log(src);
+
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {

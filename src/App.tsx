@@ -14,7 +14,7 @@ import ForgotPass from "./pages/ForgotPass/ForgotPass";
 import VerifyCodeOTP from "./pages/VerifyCodeOTP/VerifyCodeOTP";
 import { useRecoilValue } from "recoil";
 import { createRoom } from "./recoil/initState";
-const Chat = React.lazy(() => import("./pages/Chat/Chat"));
+import Chat from "./pages/Chat/Chat";
 const Admin = React.lazy(() => import("./pages/Admin/Admin"));
 const VerifyCode = React.lazy(() => import("./pages/VerifyCode/VerifyCode"));
 const AddInfo = React.lazy(() => import("./pages/AddInfo/AddInfo"));
@@ -30,13 +30,12 @@ function App() {
 
     // Kiểm tra kích thước màn hình khi component được render
     checkScreenSize();
-    // Thêm sự kiện resize để kiểm tra kích thước màn hình khi thay đổi
+    // // Thêm sự kiện resize để kiểm tra kích thước màn hình khi thay đổi
     window.addEventListener("resize", checkScreenSize);
 
     // Xóa sự kiện khi component unmount để tránh memory leak
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
-  console.log(createRoomR);
   // Hàm kiểm tra kích thước màn hình
   const checkScreenSize = () => {
     setIsSmallScreen(window.innerWidth < 1366);

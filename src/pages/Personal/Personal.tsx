@@ -33,7 +33,6 @@ interface ResponseData {
 }
 const Personal = () => {
   const { info } = useSelector((state: RootState) => state.info);
-  console.log(info);
   const token = useRecoilValue(tokenState);
   const navigate = useNavigate();
   const [loadData, setLoadData] = useState(false);
@@ -55,7 +54,6 @@ const Personal = () => {
         if (response.status === 200) {
           setLengthFriend(response.data.data.length);
           //setLoadData(true);
-          console.log(response.data.data.length);
         }
       })
       .catch((error) => {
@@ -70,7 +68,7 @@ const Personal = () => {
         const response = await api.get<ResponseData>(
           `https://truongnetwwork.bsite.net/api/post/user/${id}`
         );
-        console.log(response);
+
         setLengthPost(response.data.data.length);
         // setTotal(response.data.data.length);
         setData(response.data);
@@ -90,14 +88,12 @@ const Personal = () => {
   useEffect(() => {
     if (info.length === 0) {
       setLoadEditInfo(false);
-      console.log(1);
     } else {
       setLoadModalOpened(true);
-      console.log(2);
+
       // setModalOpened(true);
     }
   }, info.length);
-  console.log(info);
   return (
     <>
       <div className=" w-full relative  top-[50px]">

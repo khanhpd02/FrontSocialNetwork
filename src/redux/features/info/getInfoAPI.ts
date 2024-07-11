@@ -4,7 +4,7 @@ const getInfo = async () => {
   const token = localStorage.getItem("token");
   setAuthToken(token);
   const response = await api.get(API.GET_MY_INFO);
-  console.log
+
   return response.data;
 };
 

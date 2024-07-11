@@ -82,7 +82,7 @@ const ListFriend = () => {
     // loadDataUserCmt();
   }, []);
   const myArray = [1, 2, 3, 4, 5, 6, 7, 8];
-  console.log(data);
+
   return (
     <>
       <div className="flex flex-row relative left-[23rem] top-[50px]">

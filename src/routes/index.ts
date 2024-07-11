@@ -1,14 +1,16 @@
-import React from "react";
+
 import Home from "../pages/Home/Home";
-const AddPost = React.lazy(() => import("../pages/AddPost/AddPost"))
-const AddReels = React.lazy(() => import("../pages/AddReels/AddReels"))
-const Public = React.lazy(() => import("../pages/Public"))
-const CallGroup = React.lazy(() => import("../pages/CallGroup/CallGroup"))
-const JoinCallGroup = React.lazy(() => import("../pages/CallGroup/JoinCallGroup"))
-const Search = React.lazy(() => import("../pages/Search/Search"))
-const ListFriend = React.lazy(() => import("../pages/ListFriend/ListFriend"))
-const Notifications = React.lazy(() => import("../pages/Notifications/Notifications"))
-const PagePostSimp = React.lazy(() => import("../pages/PagePostSimp/PagePostSimp"))
+
+import AddPost from "../pages/AddPost/AddPost";
+import AddReels from "../pages/AddReels/AddReels";
+import Public from "../pages/Public";
+import CallGroup from "../pages/CallGroup/CallGroup";
+import JoinCallGroup from "../pages/CallGroup/JoinCallGroup";
+import Search from "../pages/Search/Search";
+import ListFriend from "../pages/ListFriend/ListFriend";
+import Notifications from "../pages/Notifications/Notifications";
+import PagePostSimp from "../pages/PagePostSimp/PagePostSimp";
+
 const publicRoutes = [
     {
       path: "/",

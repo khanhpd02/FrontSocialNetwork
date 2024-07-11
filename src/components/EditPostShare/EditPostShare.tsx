@@ -19,7 +19,6 @@ interface MenuItem {
 }
 const EditPostShare = ({ data }: Props) => {
   const { info } = useSelector((state: RootState) => state.info);
-  console.log(data);
 
   const [, setLoadShare] = useRecoilState(SharePS);
   const [toggleEmj, setToggleEmj] = useState(true);
@@ -81,7 +80,6 @@ const EditPostShare = ({ data }: Props) => {
       formData.append("LevelView", selectedItem?.key);
       formData.append("shareId", data.idShare);
 
-      console.log(formData);
       await api
         .put(
           `https://truongnetwwork.bsite.net/api/post/share/update`,

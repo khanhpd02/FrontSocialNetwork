@@ -19,7 +19,7 @@ function randomID(len: any) {
 
 export function getUrlParams(url = window.location.href) {
   const urlStr = url.split("?")[1];
-  console.log(urlStr);
+
   return new URLSearchParams(urlStr);
 }
 const CallGroup = () => {
@@ -40,7 +40,7 @@ const CallGroup = () => {
     );
     // Create instance object from Kit Token.
     const zp = ZegoUIKitPrebuilt.create(kitToken);
-    console.log(zp);
+
     // start the call
     zp.joinRoom({
       container: element,

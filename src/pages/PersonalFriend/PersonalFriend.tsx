@@ -124,13 +124,12 @@ const PersonalFriend = () => {
   const handleAcceptF = async (idfriend: any) => {
     try {
       const id = idfriend;
-      console.log(1);
+
       const response = await api.post(
         `https://truongnetwwork.bsite.net/api/Friend/accept/${id}`
       );
-      if (response.status == 200) {
-        loadDataInfo();
-      }
+      console.log(response);
+      loadDataInfo();
     } catch (error) {
       console.log("Login failed", error);
     }
@@ -146,7 +145,6 @@ const PersonalFriend = () => {
       );
 
       if (response.status == 200) {
-        console.log(response);
         loadDataInfo();
       }
     } catch (error) {
@@ -157,7 +155,6 @@ const PersonalFriend = () => {
     // setLoadSearch1(true);
     // setAuthToken(token);
     try {
-      console.log(1);
       const response = await api.post(
         `https://truongnetwwork.bsite.net/api/Friend/updateFriendLevel`,
         {
@@ -165,7 +162,7 @@ const PersonalFriend = () => {
           level: "5",
         }
       );
-      console.log(response);
+
       if (response.status == 200) {
         loadDataInfo();
       }
@@ -181,7 +178,7 @@ const PersonalFriend = () => {
       const response = await api.post(
         `https://truongnetwwork.bsite.net/api/Friend/refuseFriend/${id}`
       );
-      console.log(response);
+
       if (response.status == 200) {
         loadDataInfo();
       }
@@ -243,17 +240,9 @@ const PersonalFriend = () => {
         : data.data.firebaseData.uid + currentUser.data.firebaseData.uid;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
-      console.log(combinedId);
+
       if (!res.exists()) {
         await setDoc(doc(db, "chats", combinedId), { messages: [] });
-        console.log(
-          "u:",
-          data.data.firebaseData.uid,
-          "di:",
-          data.data.firebaseData.displayName,
-          "pho:",
-          data.data.firebaseData.photoURL
-        );
 
         await updateDoc(
           doc(db, "userChats", currentUser.data.firebaseData.uid),
@@ -266,14 +255,7 @@ const PersonalFriend = () => {
             [combinedId + ".date"]: serverTimestamp(),
           }
         );
-        console.log(
-          "u:",
-          currentUser.data.firebaseData.uid,
-          "di:",
-          currentUser.data.firebaseData.displayName,
-          "pho:",
-          currentUser.data.firebaseData.photoURL
-        );
+
         await updateDoc(doc(db, "userChats", data.data.firebaseData.uid), {
           [combinedId + ".userInfo"]: {
             uid: currentUser.data.firebaseData.uid,
@@ -282,8 +264,6 @@ const PersonalFriend = () => {
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
-
-        console.log(456);
       }
     } catch (error) {
       console.log("Loi r");

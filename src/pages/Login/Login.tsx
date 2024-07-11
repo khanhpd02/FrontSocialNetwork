@@ -60,12 +60,10 @@ const Login = () => {
         })
           .then((response) => {
             // Xử lý cookie từ response nếu cần thiết
-            console.log(response);
 
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             if (data?.message == "Email is exist") {
               toast.error("Tài khoản đã được đăng ký!");
               setIsLoading(false);
@@ -119,7 +117,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     setIsLoading(true);
-    console.log(email, password1);
+
     try {
       const data = {
         email: email,

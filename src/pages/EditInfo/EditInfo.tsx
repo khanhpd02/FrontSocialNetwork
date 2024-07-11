@@ -57,8 +57,8 @@ const EditInfo = ({ info }: Props) => {
   const dispatch = useAppDispatch();
   const [, setModalOpened] = useRecoilState(ismodalOpened);
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
+    console.log(date);
     setDateOfBirth(dateString);
-    console.log(date, dateString);
   };
 
   const onChangeR = (e: RadioChangeEvent) => {
@@ -126,10 +126,8 @@ const EditInfo = ({ info }: Props) => {
         Career: Career,
         Nickname: NickName,
       };
-      console.log(data);
 
       setAuthToken(token);
-      console.log(data);
 
       try {
         const res = await api.post(API.EDIT_INFO, data, {
@@ -163,7 +161,7 @@ const EditInfo = ({ info }: Props) => {
   const [nameCi, setNameCi] = useState(info?.data?.provinces);
   const [nameDi, setNameDi] = useState(info?.data?.districts);
   const [nameWa, setNameWa] = useState(info?.data?.wards);
-  console.log(selectedDistrict1);
+
   const loadDataProvide = async () => {
     // Gọi API để lấy dữ liệu
     setAuthToken(token);
@@ -172,7 +170,6 @@ const EditInfo = ({ info }: Props) => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data.data[0]);
           setDataProvide(response.data);
         }
       })
@@ -190,7 +187,6 @@ const EditInfo = ({ info }: Props) => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data);
           setDataDistrict(response.data);
         }
       })
@@ -212,7 +208,6 @@ const EditInfo = ({ info }: Props) => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data);
           setDataWard(response.data);
         }
       })
@@ -221,7 +216,6 @@ const EditInfo = ({ info }: Props) => {
       });
   };
   useEffect(() => {
-    console.log(123);
     loadDataWard();
   }, [selectedDistrict1]);
   useEffect(() => {

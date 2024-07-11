@@ -55,7 +55,6 @@ const ChatHome = () => {
   };
   const handleSelect = async () => {
     if (!user) {
-      console.error("User is null.");
       return;
     }
 

@@ -84,11 +84,6 @@ const Notifications = () => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response);
-          // setLoadCmt1(true);
-          // setLoad(true);
-          // setLoadSearch1(false);
-          // setLoadSearch2(false);
           setDataF(response.data);
         }
       })

@@ -30,7 +30,6 @@ const Search = () => {
   const [loadSearch1, setLoadSearch1] = useState(false);
   const [loadSearch2, setLoadSearch2] = useState(false);
   const { fullName } = useParams();
-  console.log(fullName);
   const [dataCmt, setData] = useState<ResponseData>({
     data: [],
     success: false,
@@ -53,7 +52,6 @@ const Search = () => {
           setData(res.data);
           setLoadSearch1(false);
           setLoadSearch2(false);
-          console.log(res.data);
         }
       })
       .catch((err) => console.log(err));
@@ -77,7 +75,7 @@ const Search = () => {
           if (res.status === 200) {
             setLoadingPage({ value: 100 });
             setData(res.data);
-            console.log(res.data);
+
             setLoadSearch(false);
           }
         })
@@ -85,7 +83,6 @@ const Search = () => {
     };
     hanldDltCmtChild();
   }, [fullName]);
-  console.log(dataCmt);
   const handleAddF = async (idfriend: any) => {
     setAuthToken(token);
     try {
@@ -93,7 +90,7 @@ const Search = () => {
       const response = await api.post(
         `https://truongnetwwork.bsite.net/api/Friend/send/${id}`
       );
-      console.log(response);
+
       if (response.status == 200) {
         hanldDAddF();
       }
@@ -106,12 +103,10 @@ const Search = () => {
     // setAuthToken(token);
     try {
       const id = idfriend;
-      console.log(1);
       const response = await api.post(
         `https://truongnetwwork.bsite.net/api/Friend/accept/${id}`
       );
-      console.log(2);
-      console.log(response);
+
       if (response.status == 200) {
         hanldDAddF();
       }
@@ -127,7 +122,6 @@ const Search = () => {
       const response = await api.post(
         `https://truongnetwwork.bsite.net/api/Friend/refuseFriend/${id}`
       );
-      console.log(response);
       if (response.status == 200) {
         hanldDAddF();
       }

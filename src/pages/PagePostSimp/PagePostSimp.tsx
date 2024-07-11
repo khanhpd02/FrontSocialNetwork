@@ -45,7 +45,6 @@ const PagePostSimp = () => {
     cmtid = path.cmtid || "";
   }
 
-  console.log(data.data);
   const loadDataInfo = async () => {
     // Gọi API để lấy dữ liệu
     setAuthToken(token);
@@ -54,7 +53,6 @@ const PagePostSimp = () => {
       .then((response) => {
         // Cập nhật dữ liệu vào state
         if (response.status === 200) {
-          console.log(response.data.data);
           setLoadCmt1(true);
           setLoadSearch1(false);
           setLoadSearch2(false);
