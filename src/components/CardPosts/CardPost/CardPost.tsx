@@ -26,7 +26,7 @@ import ShareLayout from "../../shareLayout/shareLayout";
 import { MdOutlineEdit } from "react-icons/md";
 import toast from "react-hot-toast";
 import EditPost from "../../EditPost/EditPost";
-import LazyLoadImg from "../../common/LazyLoadImg/LazyLoadImg";
+// import LazyLoadImg from "../../common/LazyLoadImg/LazyLoadImg";
 import { ImageSlider } from "../../common/ImgSlider/ImageSlider";
 import {
   parseISO,
@@ -141,6 +141,7 @@ const CardPost = ({ data, cmtid }: Props) => {
     calculateDifference();
   }, []);
   useEffect(() => {
+    console.log(data.images);
     setImages(data.images);
   }, [data.images]);
   useEffect(() => {
@@ -383,7 +384,7 @@ const CardPost = ({ data, cmtid }: Props) => {
   const hanldDltPost = async () => {
     setAuthToken(token);
 
-    return api
+    api
       .delete(`https://truongnetwwork.bsite.net/api/post/${postId}`)
       .then((res) => {
         if (res.status === 204) {
@@ -487,9 +488,10 @@ const CardPost = ({ data, cmtid }: Props) => {
             {images.length === 2 && videos.length == 0 ? (
               <div className="flex" onClick={handleImage}>
                 {images?.map((index: number, item: number) => (
-                  <LazyLoadImg
-                    index={index}
-                    images={images[item]?.linkImage}
+                  <img
+                    key={index}
+                    alt="img"
+                    src={images[item]?.linkImage}
                     className="max-h-[300px] w-[50%] mx-[2px] object-cover"
                   />
                 ))}
@@ -497,22 +499,23 @@ const CardPost = ({ data, cmtid }: Props) => {
             ) : images.length === 3 ? (
               <div className="flex">
                 <div className="flex w-[100%]" onClick={handleImage}>
-                  <LazyLoadImg
-                    index={0}
-                    images={images[0]?.linkImage}
+                  <img
+                    key={0}
+                    alt="img"
+                    src={images[0]?.linkImage}
                     className="max-h-[360px] w-[50%] px-[1px] h-[auto] object-cover py-[1px]"
                   />
-
                   <div className="w-[50%] gap-1">
-                    <LazyLoadImg
-                      index={0}
-                      images={images[1]?.linkImage}
+                    <img
+                      key={0}
+                      alt="img"
+                      src={images[1]?.linkImage}
                       className="max-h-[180px] w-[100%]  h-[auto] object-cover p-[1px]"
                     />
-
-                    <LazyLoadImg
-                      index={0}
-                      images={images[2]?.linkImage}
+                    <img
+                      key={0}
+                      alt="img"
+                      src={images[2]?.linkImage}
                       className="max-h-[180px] w-[100%] h-[auto]  object-cover	p-[1px] border-solid "
                     />
                   </div>
@@ -568,9 +571,10 @@ const CardPost = ({ data, cmtid }: Props) => {
             ) : images.length === 1 ? (
               <div className="flex" onClick={handleImage}>
                 {images?.map((index: number, item: number) => (
-                  <LazyLoadImg
-                    index={index}
-                    images={images[item]?.linkImage}
+                  <img
+                    key={index}
+                    alt="img"
+                    src={images[item]?.linkImage}
                     className=" w-[100%] "
                   />
                 ))}
@@ -578,23 +582,21 @@ const CardPost = ({ data, cmtid }: Props) => {
             ) : images.length >= 4 ? (
               <div className="flex">
                 <div className="flex w-[100%]" onClick={handleImage}>
-                  <LazyLoadImg
-                    index={0}
-                    images={images[0]?.linkImage}
+                  <img
+                    alt="img"
+                    src={images[0]?.linkImage}
                     className="max-h-[360px] w-[50%] px-[1px] h-[auto] object-cover py-[1px]"
                   />
-
                   <div className="w-[50%] gap-1">
-                    <LazyLoadImg
-                      index={0}
-                      images={images[1]?.linkImage}
+                    <img
+                      alt="img"
+                      src={images[1]?.linkImage}
                       className="max-h-[180px] w-[100%]  h-[auto] object-cover p-[1px]"
                     />
-
                     <div className="relative">
-                      <LazyLoadImg
-                        index={0}
-                        images={images[2]?.linkImage}
+                      <img
+                        alt="img"
+                        src={images[2]?.linkImage}
                         className="max-h-[180px] w-[100%] h-[auto] object-cover p-[1px] border-solid border-white"
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">

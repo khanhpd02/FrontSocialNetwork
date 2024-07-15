@@ -272,7 +272,7 @@ const CardPostShare = ({ data }: Props) => {
           if (response.status == 200) {
             // dispatch(fetchPost());
             // setLike(like + 1);
-
+            console.log(response);
             try {
               api
                 .get(
@@ -280,7 +280,7 @@ const CardPostShare = ({ data }: Props) => {
                 )
                 .then((response) => {
                   // Cập nhật dữ liệu vào state
-
+                  console.log(response);
                   setCountDataShare(response.data.data.length);
                   // if (response.status !== 200) {
                   //   // dispatch(fetchPost());
