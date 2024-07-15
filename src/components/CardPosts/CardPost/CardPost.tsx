@@ -157,7 +157,10 @@ const CardPost = ({ data, cmtid }: Props) => {
       loadData();
     }
   }, [dataAddCmt]);
-  const [postId] = useState(data.id);
+  const [postId, setPostID] = useState(data.id);
+  useEffect(() => {
+    setPostID(data.id);
+  }, [data.id]);
   const dispatch = useDispatch();
   const handleLike = async () => {
     setAuthToken(token);
@@ -383,7 +386,7 @@ const CardPost = ({ data, cmtid }: Props) => {
   const [, setSsUpdatePost] = useRecoilState(isUpdatePost);
   const hanldDltPost = async () => {
     setAuthToken(token);
-
+    console.log(postId);
     api
       .delete(`https://truongnetwwork.bsite.net/api/post/${postId}`)
       .then((res) => {
