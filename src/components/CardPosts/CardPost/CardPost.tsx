@@ -42,6 +42,7 @@ interface Comment {
   content: string;
   fullName: string;
   image: string;
+  userId: string;
 }
 interface Props {
   data: any;
@@ -796,12 +797,16 @@ const CardPost = ({ data, cmtid }: Props) => {
                   >
                     Trả lời
                   </span>
-                  <span
-                    className="text-[10px] ml-2"
-                    onClick={() => hanldDltCmtChild(item.id)}
-                  >
-                    Xóa
-                  </span>
+                  {info.data.userId === item.userId ? (
+                    <span
+                      className="text-[10px] ml-2"
+                      onClick={() => hanldDltCmtChild(item.id)}
+                    >
+                      Xóa
+                    </span>
+                  ) : (
+                    <></>
+                  )}
                 </div>
                 <>
                   {loadCmtChild == true ? (

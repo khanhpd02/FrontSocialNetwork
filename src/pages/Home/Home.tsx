@@ -20,6 +20,17 @@ import ChatHome from "./ChatHome";
 import CardReels from "../../components/CardReelss/CardReels";
 import { useAppDispatch } from "../../hook/hook";
 import setLoadingPage from "../../utils/setLoadingPage";
+interface Post {
+  id: number;
+  content: string;
+  length?: number;
+  data?: []; // This suggests an array, adjust as needed
+}
+
+interface Reel {
+  id: number;
+  content: string;
+}
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -33,6 +44,7 @@ const Home = () => {
   const { info } = useSelector((state: RootState) => state.info);
   const [updateReelsR, setUpdateReelsR] = useRecoilState(updateReels);
   const [loadChat, setLoadChat] = useState(true);
+  // const [loadMore, setMore] = useState(true);
   useEffect(() => {
     const hasInfor = localStorage.getItem("hasInfor");
     if (hasInfor == "false") {
@@ -41,13 +53,31 @@ const Home = () => {
     }
   }, []);
   const [numberPost, setNumberPost] = useState(5);
-  const [post, setPost] = useState([]);
-  const [reels, setReels] = useState([]);
+  const [post, setPost] = useState<Post[]>([]);
+  const [reels, setReels] = useState<Reel[]>([]);
   useEffect(() => {
     setLoadingPage({ value: 30 });
     getPost(numberPost.toString()).then((data) => setPost(data));
     setLoadingPage({ value: 100 });
   }, [numberPost]);
+  // const prevCountRef = useRef<number | null>(null);
+
+  // useEffect(() => {
+  //   console.log(numberPost);
+  //   if (post.length !== 0) {
+  //     const count = numberPost - 4;
+
+  //     prevCountRef.current = post.data.length;
+  //     if (prevCountRef.current !== null && count >= prevCountRef.current) {
+  //       if (prevCountRef.current <= count) {
+  //         setMore(false);
+  //       } else {
+  //         setMore(true);
+  //       }
+  //     }
+  //   }
+  // }, [numberPost, post]);
+
   useEffect(() => {
     if (isUpdatePostR == false) {
       setLoadingPage({ value: 30 });
@@ -170,7 +200,7 @@ const Home = () => {
               </Link>
               <CardPosts data={post} />
             </div>
-
+            {/* {loadMore === true ? ( */}
             <div className="">
               {" "}
               <div className=" h-[280px] w-[500px] min-[1920px]:ml-[33%] ml-[21%] bg-white  rounded-[10px]">
@@ -197,6 +227,16 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            {/* // ) : (
+            //   <div className="relative flex items-center justify-center mb-8">
+            //     <div className="absolute inset-0 flex items-center">
+            //       <div className="w-full border-t border-muted"></div>
+            //     </div>
+            //     <div className="relative px-4 text-sm text-muted-foreground bg-background">
+            //       Bạn đã kéo đến cuối trang
+            //     </div>
+            //   </div>
+            // )} */}
 
             {/* <div
               className=" h-[10px] w-[500px] ml-[21%]  rounded-[10px]"

@@ -270,7 +270,7 @@ const EditPost = ({ data }: Props) => {
             {load == false ? (
               <div className="w-full h-[320px] flex justify-center items-center">
                 {" "}
-                <div className="loader"></div>
+                <div className="loader2"></div>
               </div>
             ) : (
               <div className="px-4" style={{ textAlign: "left" }}>
