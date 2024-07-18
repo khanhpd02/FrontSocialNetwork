@@ -272,12 +272,12 @@ const AddPost = () => {
               </button>
               <button
                 className={`buttonAddP ml-2 ${
-                  Content !== "" || uploadedFiles.length !== 0
+                  uploadedFiles.length !== 0
                     ? "cursor-pointer"
                     : "cursor-not-allowed"
                 }`}
                 onClick={handlePost}
-                disabled={Content == "" && uploadedFiles.length === 0}
+                disabled={uploadedFiles.length === 0}
               >
                 {isLoading ? (
                   <div className="loader"></div>
