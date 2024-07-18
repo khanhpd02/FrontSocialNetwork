@@ -384,7 +384,7 @@ const CardPost = ({ data, cmtid }: Props) => {
       .catch((err) => console.log(err));
   };
   const [, setSsUpdatePost] = useRecoilState(isUpdatePost);
-  const hanldDltPost = async () => {
+  const hanldDltPost1 = async () => {
     setAuthToken(token);
     console.log(postId);
     api
@@ -392,10 +392,14 @@ const CardPost = ({ data, cmtid }: Props) => {
       .then((res) => {
         if (res.status === 204) {
           setSsUpdatePost(false);
+          setSbP(false);
           toast.error("Đã xóa bài viết");
         }
       })
       .catch((err) => console.log(err));
+  };
+  const hanldDltPost = async () => {
+    setSbP(true);
   };
   useEffect(() => {
     loadData();
@@ -421,6 +425,11 @@ const CardPost = ({ data, cmtid }: Props) => {
   useEffect(() => {
     scrollToWow(); // Scroll sau khi dữ liệu đã được tải
   }, [dataCmt]);
+  const [sbP, setSbP] = useState(false);
+  const handleCancelPost = () => {
+    // Xử lý khi nhấn hủy
+    setSbP(false);
+  };
   return (
     <div
       className="w-[500px] h-auto bg-white  mb-10 rounded-[10px]"
@@ -953,6 +962,104 @@ const CardPost = ({ data, cmtid }: Props) => {
       )}
       {loadShare === "4" && IdEdit === data.id && (
         <VideoSlider videos={VideosRecoilR} />
+      )}
+      {sbP && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "rgba(0, 0, 0, 0.5)",
+            width: "100%",
+            height: "100%",
+            zIndex: 999,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              padding: "25px 20px",
+              borderRadius: "16px",
+              textAlign: "center",
+              width: "20%",
+            }}
+          >
+            {/* Nội dung form đặt lịch */}
+            <h2
+              style={{
+                fontFamily: "Plus Jakarta Sans",
+                fontWeight: 600,
+                fontSize: "20px",
+                lineHeight: "25.2px",
+                textAlign: "center",
+                color: "#111111",
+              }}
+            >
+              Xác nhận xóa Post
+            </h2>
+            <p
+              style={{
+                marginBottom: "0",
+                fontFamily: "Plus Jakarta Sans",
+                fontWeight: 500,
+                fontSize: "14px",
+                lineHeight: "17.64px",
+                textAlign: "center",
+                color: "#78828A",
+              }}
+            >
+              Bạn có muốn chắc chắn xóa Post này?
+            </p>
+            <div
+              style={{
+                marginTop: "20px",
+                width: "80%",
+                display: "flex",
+                justifyContent: "space-around",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            >
+              <button
+                onClick={handleCancelPost}
+                style={{
+                  marginBottom: "0",
+                  fontFamily: "Plus Jakarta Sans",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                  lineHeight: "17.64px",
+                  textAlign: "center",
+                  color: "#456fe6",
+                  border: "0",
+                  background: "transparent ",
+                }}
+              >
+                Hủy
+              </button>{" "}
+              <button
+                onClick={() => hanldDltPost1()}
+                style={{
+                  borderRadius: "20px",
+                  padding: "12px 24px 12px 24px",
+                  border: 0,
+                  background: "#456fe6",
+                  color: "#FEFEFE",
+                  fontFamily: "Plus Jakarta Sans",
+                  fontWeight: 600,
+                  fontSize: "14px",
+                  lineHeight: "17.64px",
+                  textAlign: "center",
+                }}
+              >
+                Xác nhận
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
